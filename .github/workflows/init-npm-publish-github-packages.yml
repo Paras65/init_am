@@ -18,7 +18,8 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: npm i
+        run: npm ci
+        working-directory: ./init_AM
 
       - name: Build production files
         run: npm run build
