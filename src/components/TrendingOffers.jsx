@@ -25,16 +25,22 @@ function TrendingOffers() {
   return (
     <section className="trending-offers">
       <h3 className="trending-title">🔥 Top Trending Offers</h3>
-      <ul className="trending-list">
-        {trending.map(offer => (
-          <li key={offer.id} className="trending-item">
-            <a href={offer.link} className="trending-link">
-              <img src={offer.image} alt={offer.name} className="trending-img" />
-              <span>{offer.name}</span>
-            </a>
-          </li>
-        ))}
-      </ul>
+    <ul className="trending-list">
+  {trending.map(offer => (
+    <li key={offer.id} className="trending-item">
+      <a
+        href={offer.link}
+        className="trending-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img src={offer.image} alt={offer.name} className="trending-img" />
+        <span>{offer.name}</span>
+      </a>
+    </li>
+  ))}
+</ul>
+
     </section>
   );
 }
