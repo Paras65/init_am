@@ -14,6 +14,7 @@ jobs:
 
       - name: install dependencies
         run: npm install  # Adjust if you're using a different package manager  
+        working-directory: init_AM
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -21,11 +22,12 @@ jobs:
 
       - name: Build site
         run: npm run build
+        working-directory: init_AM
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist  # Change if your site is in another directory
+          publish_dir: ./init_AM/dist  # Change if your site is in another directory
           cname: 'init.init65.co.in'  # Your custom domain
           # Optional: keep files from previous deployment, etc.
