@@ -12,9 +12,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # If you have a build step, add it here.
-      # - name: Build site
-      #   run: npm run build
+      - name: install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'  # Specify the Node.js version
+          
+      - name: Build site
+        run: npm run build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
