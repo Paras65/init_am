@@ -19,15 +19,15 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: init_AM  # <-- Correct casing here
+          
 
       - name: Build site
         run: npm run build
-        working-directory: init_AM  # <-- Same
+        
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./init_AM/dist  # <-- Match where Vite outputs the build
+          publish_dir: ./dist  # <-- Match where Vite outputs the build
           cname: 'init.init65.co.in'  # Optional: your custom domain
