@@ -1,0 +1,20 @@
+.notification {
+  padding: 0.75rem 1.5rem;
+  margin: 1rem auto;
+  border-radius: 4px;
+  max-width: 400px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1rem;
+}
+.notification-info { background: #e0e7ff; color: #3730a3; }
+.notification-success { background: #d1fae5; color: #065f46; }
+.notification-error { background: #fee2e2; color: #991b1b; }
+.notification button {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: inherit;
+}

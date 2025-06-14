@@ -1,0 +1,80 @@
+.category-filter-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 2rem 0 2.5rem 0; /* More vertical space for a luxurious feel */
+  gap: 1rem; /* Increased gap between label and filter */
+}
+
+.category-filter-label {
+  font-family: 'Inter', sans-serif; /* Using a modern, clean font if available */
+  font-size: 1.1rem; /* Slightly larger, more prominent label */
+  color: #334155; /* Deeper, sophisticated charcoal gray */
+  font-weight: 600; /* Stronger label emphasis */
+  letter-spacing: 0.03em; /* Slightly more prominent letter spacing */
+  text-transform: uppercase; /* A subtle touch for a premium feel */
+}
+
+.productlist-category-filter {
+  font-family: 'Inter', sans-serif; /* Consistent font for input */
+  padding: 0.75em 1.5em; /* Generous padding for a comfortable feel */
+  border-radius: 10px; /* More pronounced rounded corners */
+  border: 1px solid #e0e7ff; /* Very subtle, light blue border */
+  background: linear-gradient(145deg, #ffffff, #f0f4f8); /* Soft, subtle gradient for depth */
+  color: #2c3e50; /* Deep, rich text color */
+  font-size: 1.05rem; /* Slightly larger text inside the filter */
+  font-weight: 500; /* Refined font weight */
+  /* Enhanced transition for a luxurious, smooth feel */
+  transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1); /* Slower, more elegant ease-in-out */
+  outline: none;
+  /* Multi-layered shadow for subtle depth and lift */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05),
+              0 1px 3px rgba(0, 0, 0, 0.03);
+  min-width: 220px; /* Wider for a more substantial presence */
+  min-height: 3em; /* Taller for a comfortable interaction */
+  appearance: none; /* Crucial for custom arrow */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%2364748b'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'%3E%3C/path%3E%3C/svg%3E"); /* Slightly darker, more muted arrow */
+  background-repeat: no-repeat;
+  background-position: right 1.2em center; /* Adjusted arrow position */
+  background-size: 1.1em; /* Slightly smaller arrow for subtlety */
+}
+
+.productlist-category-filter:hover {
+  border-color: #a7b7ed; /* A slightly more pronounced but still soft border on hover */
+  /* More defined shadow on hover for a tactile feel */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08),
+              0 2px 5px rgba(0, 0, 0, 0.05);
+  background: linear-gradient(145deg, #ffffff, #f3f6fa); /* Subtle shift in background on hover */
+  cursor: pointer; /* Indicate interactivity */
+}
+
+.productlist-category-filter:focus {
+  border-color: #6366f1; /* A confident, yet elegant focus color (indigo) */
+  /* A distinct, glowing focus ring */
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2),
+              0 4px 10px rgba(0, 0, 0, 0.05); /* Maintain base shadow */
+  background: #ffffff; /* Solid white on focus for clarity */
+}
+
+/* --- Media Queries for Responsiveness --- */
+
+@media (max-width: 600px) {
+  .category-filter-wrapper {
+    justify-content: stretch;
+    margin: 1.2rem 0 1.8rem 0; /* Adjusted mobile margin */
+    gap: 0.75rem;
+  }
+  .category-filter-label {
+    display: none;
+  }
+  .productlist-category-filter {
+    font-size: 0.95rem;
+    min-width: unset;
+    width: 100%;
+    padding: 0.6em 1em; /* Adjusted padding for mobile */
+    min-height: 2.8em;
+    background-position: right 0.8em center;
+    background-size: 1em;
+    border-radius: 8px; /* Slightly less rounded for mobile */
+  }
+}

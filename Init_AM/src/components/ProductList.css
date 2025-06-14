@@ -1,0 +1,173 @@
+.productlist-title {
+  text-align: center;
+  margin: 1.5rem 0 1rem 0;
+  font-size: 1.5rem;
+  color: #22223b;
+}
+
+.productlist-loading,
+.productlist-error,
+.productlist-empty {
+  text-align: center;
+  margin: 1.5rem 0;
+  color: #6366f1;
+  font-size: 1.1rem;
+}
+
+.productlist-error {
+  color: #b91c1c;
+}
+
+.productlist-empty {
+  color: #6b7280;
+}
+
+.productlist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  padding: 0;
+  margin: 0 auto 2rem auto;
+  max-width: 900px;
+  list-style: none;
+}
+
+.productlist-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
+  overflow: hidden;
+  border: 1px solid #f3f4f6;
+  animation: fadeIn 0.5s;
+}
+
+.productlist-card-content {
+  padding: 1.2rem 1rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 220px; /* Adjust as needed for your content */
+  justify-content: flex-start;
+  gap: 0.5rem;
+}
+
+.productlist-card h3,
+.productlist-card p {
+  width: 100%;
+  text-align: center;
+  word-break: break-word;
+  margin: 0;
+}
+
+.productlist-card h3 {
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  color: #3730a3;
+}
+
+.productlist-card p {
+  color: #374151;
+  font-size: 0.98rem;
+  margin-bottom: 0.5rem;
+}
+
+.productlist-card:hover {
+  box-shadow: 0 8px 24px rgba(99,102,241,0.13);
+  border-color: #6366f1;
+  transform: translateY(-4px) scale(1.02);
+}
+
+.loader {
+  display: inline-block;
+  width: 1.2em;
+  height: 1.2em;
+  border: 2px solid #6366f1;
+  border-radius: 50%;
+  border-top: 2px solid transparent;
+  animation: spin 0.8s linear infinite;
+  margin-right: 0.5em;
+  vertical-align: middle;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Responsive grid padding */
+@media (max-width: 600px) {
+  .productlist-grid {
+    padding: 0 0.5rem;
+    gap: 1rem;
+  }
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px);}
+  to { opacity: 1; transform: none;}
+}
+
+.productlist-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  flex-shrink: 0;
+}
+
+.productlist-btn {
+  margin-top: auto;
+  background: #6366f1;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5em 1.2em;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  width: 100%;
+  max-width: 160px;
+  align-self: center;
+}
+
+.productlist-card h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+  color: #3730a3;
+}
+
+.productlist-card p {
+  margin: 0;
+  color: #374151;
+  font-size: 0.98rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Add to ProductList.css or a new CategoryFilter.css */
+.category-filter-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin: 1rem 0 1.5rem 0;
+}
+
+.productlist-category-filter {
+  padding: 0.5em 1.2em;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  background: #f9fafb;
+  color: #22223b;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+  box-shadow: 0 1px 2px rgba(99,102,241,0.04);
+}
+
+.productlist-category-filter:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px #6366f133;
+}

@@ -1,0 +1,49 @@
+.trending-offers {
+  margin: 1.5rem 0 1rem 0;
+  padding: 1rem;
+  background: #f5f7ff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(99,102,241,0.06);
+}
+
+.trending-title {
+  font-size: 1.2rem;
+  color: #3730a3;
+  margin-bottom: 0.7rem;
+}
+
+.trending-list {
+  display: flex;
+  gap: 1.2rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-wrap: wrap;
+}
+
+.trending-item {
+  display: flex;
+  align-items: center;
+}
+
+.trending-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #22223b;
+  font-weight: 500;
+  gap: 0.6rem;
+  transition: color 0.2s;
+}
+
+.trending-link:hover {
+  color: #6366f1;
+}
+
+.trending-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 1px 4px rgba(99,102,241,0.09);
+}
