@@ -3570,6 +3570,7 @@ function ProductList({ searchQuery }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("");
+   const [visibleCount, setVisibleCount] = useState(6);
 
   useEffect(() => {
     let isMounted = true;
@@ -3679,6 +3680,10 @@ function ProductList({ searchQuery }) {
     );
   }, [products, selectedCategory, searchQuery]);
 
+  const visibleProducts = filteredProducts.slice(0, visibleCount);
+  const hasMore = visibleCount < filteredProducts.length;
+
+
   return (
     <main>
       <h2 className="productlist-title">Featured Products</h2>
@@ -3688,9 +3693,7 @@ function ProductList({ searchQuery }) {
         </div>
       )}
       {error && (
-        <div className="productlist-error" aria-live="polite">
-          Could not load offers. Showing default offers.
-        </div>
+        console.error('API field ',error) 
       )}
       {!loading && filteredProducts.length === 0 && (
         <div className="productlist-empty" aria-live="polite">
@@ -3703,11 +3706,20 @@ function ProductList({ searchQuery }) {
         onChange={setSelectedCategory}
       />
       <ul className="productlist-grid">
-        {filteredProducts.map(product => (
-          console.log(product.Creative),
-          <ProductCard key={product.AdId} product={product} searchQuery={searchQuery} />
+        {visibleProducts.map(product => (
+          <ProductCard
+            key={product.id}
+            product={product}
+            searchQuery={searchQuery}
+          />
         ))}
       </ul>
+
+      {hasMore && (
+        <button className="show-more-btn" onClick={() => setVisibleCount(prev => prev + 6)}>
+          Show More
+        </button>
+      )}
     </main>
   );
 }
