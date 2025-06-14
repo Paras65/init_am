@@ -1,33 +1,33 @@
-name: Deploy to GitHub Pages
+name: Deploy Vite React App to GitHub Pages
 
 on:
   push:
     branches:
-      - main  # Or your default branch
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: install dependencies
-        run: npm install  # Adjust if you're using a different package manager  
-        working-directory: init_AM
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '16'  # Specify the Node.js version
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: init_AM  # <-- Correct casing here
 
       - name: Build site
         run: npm run build
-        working-directory: init_AM
+        working-directory: init_AM  # <-- Same
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./init_AM/dist  # Change if your site is in another directory
-          cname: 'init.init65.co.in'  # Your custom domain
-          # Optional: keep files from previous deployment, etc.
+          publish_dir: ./init_AM/dist  # <-- Match where Vite outputs the build
+          cname: 'init.init65.co.in'  # Optional: your custom domain
