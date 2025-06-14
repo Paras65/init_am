@@ -29,5 +29,5 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist  # <-- Match where Vite outputs the build
+          publish_dir: ./init_am/dist  # <-- Match where Vite outputs the build
           cname: 'init.init65.co.in'  # Optional: your custom domain
