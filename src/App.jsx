@@ -43,10 +43,23 @@ function App() {
     return !!localStorage.getItem("adminToken");
   });
 
-  // Login handler: store token securely (simulate token here)
-  const handleAdminLogin = (token = "demo-token") => {
-    localStorage.setItem("adminToken", token);
-    setIsAdminAuthenticated(true);
+  // Login handler: authenticate with backend
+  const handleAdminLogin = async (credentials) => {
+    try {
+      const res = await fetch("/api/admin/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(credentials),
+      });
+      if (!res.ok) throw new Error("Invalid credentials");
+      const data = await res.json();
+      // Assume backend returns { token: "..." }
+      localStorage.setItem("adminToken", data.token);
+      setIsAdminAuthenticated(true);
+      setNotification({ message: "Login successful!", type: "success" });
+    } catch (err) {
+      setNotification({ message: err.message, type: "error" });
+    }
   };
 
   // Logout handler: clear token
@@ -65,6 +78,44 @@ function App() {
     if (notificationTimeout.current) clearTimeout(notificationTimeout.current);
     notificationTimeout.current = setTimeout(() => setNotification({ message: "", type: "info" }), 3000);
   };
+
+  // Protected admin data fetching example
+  useEffect(() => {
+    const fetchProtectedData = async () => {
+      if (!isAdminAuthenticated) return;
+      try {
+        const token = localStorage.getItem("adminToken");
+        const res = await fetch("/api/admin/protected", {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error("Failed to fetch protected data");
+        const data = await res.json();
+        console.log("Protected data:", data);
+      } catch (err) {
+        console.error(err);
+        setIsAdminAuthenticated(false); // Invalidate session on error
+      }
+    };
+    fetchProtectedData();
+  }, [isAdminAuthenticated]);
+
+  useEffect(() => {
+    const checkToken = async () => {
+      const token = localStorage.getItem("adminToken");
+      if (!token) return;
+      try {
+        const res = await fetch("/api/admin/validate-token", {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error();
+        setIsAdminAuthenticated(true);
+      } catch {
+        localStorage.removeItem("adminToken");
+        setIsAdminAuthenticated(false);
+      }
+    };
+    checkToken();
+  }, []);
 
   return (
     <div className="app-container">
