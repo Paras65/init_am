@@ -15,6 +15,7 @@ import About from './components/About';
 import ReferAndEarn from './components/ReferAndEarn';
 import LiveDeals from './components/LiveDeals';
 import PrivacyPolicy from './components/PrivacyPolicy';
+import Home from './components/Home';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -46,7 +47,7 @@ function App() {
       />
       <main>
         <Routes>
-          <Route path="/" element={<h2>Welcome to Init Free Offers Hub!</h2>} />
+          <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/refer" element={<ReferAndEarn />} />
           <Route path="/live-deals" element={<LiveDeals />} />

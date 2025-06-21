@@ -1,8 +1,10 @@
 import React from "react";
+import "./PrivacyPolicy.css";
+
 
 function PrivacyPolicy() {
   return (
-    <section className="privacy-policy" style={{ maxWidth: 700, margin: "2rem auto", padding: "1rem" }}>
+    <section className="privacy-policy">
       <h2>Privacy Policy</h2>
       <p>
         <strong>Last updated:</strong> {new Date().getFullYear()}
