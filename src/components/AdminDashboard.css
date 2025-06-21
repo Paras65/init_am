@@ -1,0 +1,85 @@
+.admin-dashboard-container {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 32px 24px;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.07);
+  font-family: 'Poppins', 'Segoe UI', 'Arial', sans-serif;
+  text-align: center;
+}
+.admin-dashboard-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2563eb;
+  margin-bottom: 8px;
+}
+.admin-dashboard-welcome {
+  color: #555;
+  margin-bottom: 24px;
+  font-size: 1.1rem;
+}
+.admin-dashboard-stats {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+.admin-dashboard-card {
+  background: #f1f5f9;
+  border-radius: 12px;
+  padding: 24px 32px;
+  min-width: 120px;
+  text-decoration: none;
+  color: #22223b;
+  box-shadow: 0 2px 8px 0 rgba(37,99,235,0.06);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.admin-dashboard-card:hover {
+  box-shadow: 0 4px 16px 0 rgba(37,99,235,0.13);
+  transform: translateY(-2px) scale(1.03);
+}
+.admin-dashboard-card-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1e40af;
+}
+.admin-dashboard-card-label {
+  font-size: 1rem;
+  color: #555;
+  margin-top: 6px;
+}
+.admin-dashboard-actions {
+  margin: 32px 0 16px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+.admin-dashboard-action-btn {
+  background: #2563eb;
+  color: #fff;
+  padding: 10px 22px;
+  border-radius: 6px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.admin-dashboard-action-btn:hover {
+  background: #1e40af;
+}
+.admin-dashboard-logout {
+  margin-top: 18px;
+  background: #e53e3e;
+  color: #fff;
+  border: none;
+  padding: 10px 28px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.admin-dashboard-logout:hover {
+  background: #b91c1c;
+}
