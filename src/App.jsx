@@ -45,7 +45,7 @@ function App() {
       <main>
         <About />
         <ReferAndEarn />
-        {/* <LiveDeals /> Add here for real-time coupons/offers */}
+        <LiveDeals /> Add here for real-time coupons/offers
         <SearchBar onSearch={handleSearch} />
         <TrendingOffers />
         <VideoProductAd

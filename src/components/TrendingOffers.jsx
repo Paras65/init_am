@@ -1,6 +1,7 @@
+import React, { useEffect, useState } from "react";
 import "./TrendingOffers.css";
 
-const trending = [
+const defaultOffers =[
   {
     id: 1,
     name: "50% Off Summer Fashion",
@@ -22,25 +23,50 @@ const trending = [
 ];
 
 function TrendingOffers() {
+  const [offers, setOffers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("https://api.example.com/offers") // Replace with your API endpoint
+      .then((res) => {
+        if (!res.ok) throw new Error("Network response was not ok");
+        return res.json();
+      })
+      .then((data) => {
+        setOffers(Array.isArray(data) ? data : defaultOffers);
+        setLoading(false);
+      })
+      .catch(() => {
+        setOffers(defaultOffers);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) return <div>Loading...</div>;
+
   return (
     <section className="trending-offers">
       <h3 className="trending-title">🔥 Top Trending Offers</h3>
-    <ul className="trending-list">
-  {trending.map(offer => (
-    <li key={offer.id} className="trending-item">
-      <a
-        href={offer.link}
-        className="trending-link"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <img src={offer.image} alt={offer.name} className="trending-img" />
-        <span>{offer.name}</span>
-      </a>
-    </li>
-  ))}
-</ul>
-
+      <ul className="trending-list">
+        {offers.map((offer) => (
+          <li key={offer.id} className="trending-item">
+            <a
+              href={offer.link}
+              className="trending-link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src={offer.image}
+                alt={offer.name}
+                className="trending-img"
+                loading="lazy"
+              />
+              <span>{offer.name}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }
