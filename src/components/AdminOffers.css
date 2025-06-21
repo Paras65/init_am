@@ -1,0 +1,21 @@
+.admin-offers-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  background: #fff;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,0.06);
+}
+.admin-offers-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+}
+.admin-offers-table th, .admin-offers-table td {
+  border: 1px solid #e5e7eb;
+  padding: 8px 12px;
+  text-align: left;
+}
+.admin-offers-table th {
+  background: #f1f5f9;
+}
