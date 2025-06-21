@@ -53,9 +53,9 @@ function AdminLogin({ onLogin }) {
         }
       );
       const data = await res.json();
-      if (data.success) {
+      if (data.token) {
         localStorage.setItem('adminToken', data.token);
-        onLogin(data.token); // Pass the token up
+        onLogin(data.token);
         navigate('/admin/dashboard');
       } else {
         setError(data.message || 'Invalid credentials');
