@@ -1,0 +1,67 @@
+.contact-section {
+  background: #fff;
+  border-radius: 1.2rem;
+  box-shadow: 0 4px 24px rgba(99,102,241,0.07), 0 1.5px 8px rgba(0,0,0,0.03);
+  padding: 2.5rem 1.5rem 2rem 1.5rem;
+  max-width: 600px;
+  margin: 2.5rem auto;
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+  color: #22223b;
+}
+
+.contact-section h2 {
+  color: #6366f1;
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 1.2rem;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  margin-top: 1.2rem;
+}
+
+.contact-form label {
+  font-weight: 500;
+  color: #444;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 0.7rem 1rem;
+  border: 1.5px solid #e0e7ff;
+  border-radius: 7px;
+  font-size: 1rem;
+  background: #f8fafc;
+  transition: border 0.2s;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: #6366f1;
+  outline: none;
+}
+
+.contact-btn {
+  background: linear-gradient(90deg, #6366f1 60%, #818cf8 100%);
+  color: #fff;
+  font-weight: 700;
+  border: none;
+  border-radius: 7px;
+  padding: 0.8rem 1.5rem;
+  font-size: 1.08rem;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(99,102,241,0.07);
+}
+
+.contact-btn:hover,
+.contact-btn:focus {
+  background: #6366f1;
+  box-shadow: 0 4px 16px rgba(99,102,241,0.13);
+}

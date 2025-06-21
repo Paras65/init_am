@@ -16,6 +16,7 @@ import ReferAndEarn from './components/ReferAndEarn';
 import LiveDeals from './components/LiveDeals';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import Home from './components/Home';
+import Contact from './components/Contact';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -71,6 +72,7 @@ function App() {
           } />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
       </main>
       <Footer />

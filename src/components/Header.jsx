@@ -56,6 +56,9 @@ function Header() {
           <li>
             <NavLink to="/privacy" className={({ isActive }) => isActive ? 'active' : ''} onClick={handleClose}>Privacy</NavLink>
           </li>
+          <li>
+            <NavLink to="/contact" className={({ isActive }) => isActive ? 'active' : ''} onClick={handleClose}>Contact</NavLink>
+          </li>
         </ul>
       </nav>
     </header>
