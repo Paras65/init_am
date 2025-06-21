@@ -1,13 +1,16 @@
 .header {
   padding: 1rem 0.5rem;
-  background: rgba(255,255,255,0.95);
-  border-bottom: 1px solid #e5e7eb;
+  background: rgba(255, 255, 255, 0.65); /* Slightly more transparent */
+  border-bottom: 1.5px solid rgba(99,102,241,0.10);
   color: #1a202c;
   text-align: center;
   box-shadow: 0 4px 24px rgba(99,102,241,0.07), 0 1.5px 8px rgba(0,0,0,0.03);
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 100;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(12px); /* Stronger blur for glass effect */
+  -webkit-backdrop-filter: blur(12px);
+  transition: background 0.3s, box-shadow 0.3s;
 }
 
 .header-logo {
@@ -18,10 +21,20 @@
   margin-bottom: 0.5rem;
   display: inline-block;
   transition: color 0.2s;
+  background: rgba(255,255,255,0.6);
+  border-radius: 1.5rem;
+  padding: 0.2rem 0.8rem;
 }
 
-.header-logo:hover {
-  color: #4338ca;
+.header-logo-img {
+  width: 38px;
+  height: 38px;
+  margin-right: 8px;
+  vertical-align: middle;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 2px 8px rgba(99,102,241,0.07);
+  background: rgba(255,255,255,0.7);
 }
 
 .header-title {
@@ -107,17 +120,19 @@
   letter-spacing: 0.01em;
   transition: background 0.2s, color 0.2s, box-shadow 0.2s;
   box-shadow: 0 0 0 rgba(99,102,241,0);
+  background: rgba(255,255,255,0.35); /* More transparent */
+  backdrop-filter: blur(6px);          /* Subtle glass effect */
+  -webkit-backdrop-filter: blur(6px);
 }
 
 .header-nav a:hover,
 .header-nav a:focus {
-  background: #f3f4f6;
+  background: rgba(99,102,241,0.13);  /* Slightly more color on hover */
   color: #6366f1;
-  box-shadow: 0 2px 8px rgba(99,102,241,0.07);
 }
 
 .header-nav .active {
-  background: linear-gradient(90deg, #6366f1 60%, #818cf8 100%);
+  background: linear-gradient(90deg, #6366f1bb 60%, #818cf8bb 100%);
   color: #fff;
   box-shadow: 0 2px 12px rgba(99,102,241,0.13);
 }
@@ -129,19 +144,23 @@
   justify-content: center;
   width: 42px;
   height: 42px;
-  background: none;
+  background: rgba(255,255,255,0.4); /* Transparent background */
   border: none;
   cursor: pointer;
   padding: 8px;
   margin-left: auto;
   z-index: 120;
-  transition: background 0.2s;
+  transition: background 0.2s, box-shadow 0.2s;
   border-radius: 50%;
+  backdrop-filter: blur(8px); /* Glass effect */
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 2px 8px rgba(99,102,241,0.07);
 }
 
 .hamburger:active,
 .hamburger:focus {
-  background: #f3f4f6;
+  background: rgba(99,102,241,0.12);
+  outline: none;
 }
 
 .hamburger-bar {

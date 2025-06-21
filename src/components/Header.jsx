@@ -12,7 +12,9 @@ function Header() {
     <header className="header">
       <div className="header-top">
         <div className="header-logo">
-          <Link to="/" onClick={handleClose}>Init Free Offers Hub</Link>
+          <Link to="/" onClick={handleClose} aria-label="Go to homepage">
+           
+          </Link>
         </div>
         <button
           className="hamburger"
