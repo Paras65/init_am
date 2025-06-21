@@ -27,7 +27,7 @@ function AdminDashboard() {
         <Link to="/admin/offers" className="admin-dashboard-action-btn">Manage Offers</Link>
         <Link to="/admin/products" className="admin-dashboard-action-btn">Manage Products</Link>
         <Link to="/admin/trending" className="admin-dashboard-action-btn">Manage Trending</Link>
-        <Link to="/admin/contacts" className="admin-dashboard-action-btn">View Contacts</Link>
+        {/* <Link to="/admin/contacts" className="admin-dashboard-action-btn">View Contacts</Link> */}
       </div>
       <button
         className="admin-dashboard-logout"
