@@ -1,10 +1,12 @@
 import './Footer.css'
+import { Link } from 'react-router-dom';
+
 function Footer() {
   return (
     <footer className="footer" aria-label="Site Footer">
       <p>
         &copy; {new Date().getFullYear()} Init Free Offers Hub &nbsp;|&nbsp;
-        <a href="#">Privacy Policy</a> &nbsp;|&nbsp;
+        <Link to="/privacy">Privacy Policy</Link> &nbsp;|&nbsp;
         <a href="#">Contact</a>
       </p>
       <p className="footer-powered">

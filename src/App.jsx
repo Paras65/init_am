@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react'
+import { Routes, Route } from 'react-router-dom';
 import './App.css'
 import Header from './components/Header'
 import Notifications from './components/Notifications'
@@ -13,6 +14,7 @@ import FAQ from './components/FAQ';
 import About from './components/About';
 import ReferAndEarn from './components/ReferAndEarn';
 import LiveDeals from './components/LiveDeals';
+import PrivacyPolicy from './components/PrivacyPolicy';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -43,25 +45,32 @@ function App() {
         onClose={() => setNotification({ message: "", type: "info" })}
       />
       <main>
-        <About />
-        <ReferAndEarn />
-        <LiveDeals /> Add here for real-time coupons/offers
-        <SearchBar onSearch={handleSearch} />
-        <TrendingOffers />
-        <VideoProductAd
-          videoUrl="https://a.impactradius-go.com/display-ad/7443-701707"
-          title="Watch: Our Featured Product"
-          description="See this product in action and discover its benefits!"
-          ctaUrl="https://appsumo.8odi.net/c/2194403/701707/7443"
-        />
-        
-        {/* <ProductOpt /> */}
-        <ProductList
-          searchQuery={searchQuery}
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
-        />
-        <FAQ />
+        <Routes>
+          <Route path="/" element={<h2>Welcome to Init Free Offers Hub!</h2>} />
+          <Route path="/about" element={<About />} />
+          <Route path="/refer" element={<ReferAndEarn />} />
+          <Route path="/live-deals" element={<LiveDeals />} />
+          <Route path="/search" element={<SearchBar onSearch={handleSearch} />} />
+          <Route path="/trending" element={<TrendingOffers />} />
+          <Route path="/video-ad" element={
+            <VideoProductAd
+              videoUrl="https://a.impactradius-go.com/display-ad/7443-701707"
+              title="Watch: Our Featured Product"
+              description="See this product in action and discover its benefits!"
+              ctaUrl="https://appsumo.8odi.net/c/2194403/701707/7443"
+            />
+          } />
+          <Route path="/offers" element={<ProductOpt />} />
+          <Route path="/products" element={
+            <ProductList
+              searchQuery={searchQuery}
+              selectedCategory={selectedCategory}
+              setSelectedCategory={setSelectedCategory}
+            />
+          } />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+        </Routes>
       </main>
       <Footer />
     </div>

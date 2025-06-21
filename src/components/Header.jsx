@@ -1,36 +1,47 @@
+import { useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import './Header.css';
 
-const categories = [
-  "Fashion",
-  "Electronics",
-  "Travel",
-  "Health",
-  "Finance"
-];
+function Header() {
+  const [menuOpen, setMenuOpen] = useState(false);
 
-function Header({ onCategorySelect }) {
+  const handleToggle = () => setMenuOpen((open) => !open);
+  const handleClose = () => setMenuOpen(false);
+
   return (
     <header className="header">
       <div className="header-top">
-        <a href="/" className="header-logo-link" aria-label="Home">
-          <img
-            src="/logo-png.png"
-            alt="Init_AM Logo"
-            className="header-logo"
-            style={{
-              width: "56px",
-              height: "56px",
-              borderRadius: "12px",
-              boxShadow: "0 2px 8px rgba(99,102,241,0.13)",
-              background: "#fff",
-              objectFit: "contain",
-              marginRight: "1rem"
-            }}
-          />
-        </a>
-        <h1 className="header-title">Init Free Offers Hub</h1>
+        <div className="header-logo">
+          <Link to="/" onClick={handleClose}>Init Free Offers Hub</Link>
+        </div>
+        <button
+          className="hamburger"
+          aria-label="Toggle navigation"
+          aria-expanded={menuOpen}
+          onClick={handleToggle}
+        >
+          <span className="hamburger-bar"></span>
+          <span className="hamburger-bar"></span>
+          <span className="hamburger-bar"></span>
+        </button>
       </div>
+      <nav className={`header-nav${menuOpen ? ' open' : ''}`}>
+        <ul>
+          <li>
+            <NavLink to="/" end className={({ isActive }) => isActive ? 'active' : ''} onClick={handleClose}>Home</NavLink>
+          </li>
+          <li><NavLink to="/about" className={({ isActive }) => isActive ? 'active' : ''} onClick={handleClose}>About</NavLink></li>
+          <li><NavLink to="/refer" className={({ isActive }) => isActive ? 'active' : ''} onClick={handleClose}>Refer & Earn</NavLink></li>
+          <li><NavLink to="/live-deals" className={({ isActive }) => isActive ? 'active' : ''} onClick={handleClose}>Live Deals</NavLink></li>
+          <li><NavLink to="/trending" className={({ isActive }) => isActive ? 'active' : ''} onClick={handleClose}>Trending</NavLink></li>
+          <li><NavLink to="/offers" className={({ isActive }) => isActive ? 'active' : ''} onClick={handleClose}>Offers</NavLink></li>
+          <li><NavLink to="/products" className={({ isActive }) => isActive ? 'active' : ''} onClick={handleClose}>Products</NavLink></li>
+          <li><NavLink to="/faq" className={({ isActive }) => isActive ? 'active' : ''} onClick={handleClose}>FAQ</NavLink></li>
+          <li><NavLink to="/privacy" className={({ isActive }) => isActive ? 'active' : ''} onClick={handleClose}>Privacy</NavLink></li>
+        </ul>
+      </nav>
     </header>
   );
 }
-export default Header
+
+export default Header;
