@@ -49,6 +49,11 @@ function App() {
     setIsAdminAuthenticated(false);
   };
 
+  const handleAdminLogin = (token) => {
+    setIsAdminAuthenticated(true);
+    // Optionally: store token here if not already stored
+  };
+
   const handleSearch = (query) => {
     setSearchQuery(query);
     setSelectedCategory(""); // Reset category filter on new search
