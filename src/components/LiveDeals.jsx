@@ -22,26 +22,55 @@ const defaultDeals = [
   }
 ];
 
+// Use Vite env variables (must start with VITE_)
+const ADMITAD_CLIENT_ID = import.meta.env.VITE_ADMITAD_CLIENT_ID;
+const ADMITAD_CLIENT_SECRET = import.meta.env.VITE_ADMITAD_CLIENT_SECRET;
+const ADMITAD_API_URL = import.meta.env.VITE_ADMITAD_API_URL;
+
+async function fetchAdmitadDeals() {
+  // 1. Get access token
+  const tokenRes = await fetch("https://api.admitad.com/token/", {
+    method: "POST",
+    headers: {
+      "Authorization": "Basic " + btoa(`${ADMITAD_CLIENT_ID}:${ADMITAD_CLIENT_SECRET}`),
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: "grant_type=client_credentials"
+  });
+  const tokenData = await tokenRes.json();
+  if (!tokenData.access_token) throw new Error("No access token");
+
+  // 2. Fetch deals
+  const dealsRes = await fetch(`${ADMITAD_API_URL}?limit=8`, {
+    headers: {
+      "Authorization": `Bearer ${tokenData.access_token}`
+    }
+  });
+  const dealsData = await dealsRes.json();
+  // 3. Map Admitad deals to your format
+  return (dealsData.results || []).map(deal => ({
+    title: deal.name || "Admitad Deal",
+    description: deal.description || "",
+    price_str: deal.campaign && deal.campaign.name,
+    url: deal.goto_url
+  }));
+}
+
 function LiveDealsCarousel() {
   const [deals, setDeals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/live-deals")
-      .then(res => res.json())
-      .then(data => {
-        if (data && data.length > 0) {
-          setDeals(data.slice(0, 8));
-        } else {
-          setDeals(defaultDeals);
-        }
-        setLoading(false);
-      })
-      .catch(() => {
+    (async () => {
+      try {
+        const admitadDeals = await fetchAdmitadDeals();
+        setDeals(admitadDeals.length ? admitadDeals : defaultDeals);
+      } catch (e) {
         setDeals(defaultDeals);
-        setLoading(false);
-      });
+      }
+      setLoading(false);
+    })();
   }, []);
 
   useEffect(() => {
@@ -71,7 +100,7 @@ function LiveDealsCarousel() {
           </button>
           <div className="carousel-slide">
             <div className="carousel-deal-title">{deals[current].title}</div>
-            <div className="carousel-deal-desc">{deals[current].description || deals[current].desc}</div>
+            <div className="carousel-deal-desc">{deals[current].description}</div>
             <div className="carousel-deal-footer">
               {deals[current].price_str && (
                 <span className="carousel-deal-price">{deals[current].price_str}</span>
