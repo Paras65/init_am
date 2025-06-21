@@ -32,14 +32,30 @@ function Header() {
           <li>
             <NavLink to="/" end className={({ isActive }) => isActive ? 'active' : ''} onClick={handleClose}>Home</NavLink>
           </li>
-          <li><NavLink to="/about" className={({ isActive }) => isActive ? 'active' : ''} onClick={handleClose}>About</NavLink></li>
-          <li><NavLink to="/refer" className={({ isActive }) => isActive ? 'active' : ''} onClick={handleClose}>Refer & Earn</NavLink></li>
-          <li><NavLink to="/live-deals" className={({ isActive }) => isActive ? 'active' : ''} onClick={handleClose}>Live Deals</NavLink></li>
-          <li><NavLink to="/trending" className={({ isActive }) => isActive ? 'active' : ''} onClick={handleClose}>Trending</NavLink></li>
-          <li><NavLink to="/offers" className={({ isActive }) => isActive ? 'active' : ''} onClick={handleClose}>Offers</NavLink></li>
-          <li><NavLink to="/products" className={({ isActive }) => isActive ? 'active' : ''} onClick={handleClose}>Products</NavLink></li>
-          <li><NavLink to="/faq" className={({ isActive }) => isActive ? 'active' : ''} onClick={handleClose}>FAQ</NavLink></li>
-          <li><NavLink to="/privacy" className={({ isActive }) => isActive ? 'active' : ''} onClick={handleClose}>Privacy</NavLink></li>
+          <li>
+            <NavLink to="/trending" className={({ isActive }) => isActive ? 'active' : ''} onClick={handleClose}>Trending</NavLink>
+          </li>
+          <li>
+            <NavLink to="/live-deals" className={({ isActive }) => isActive ? 'active' : ''} onClick={handleClose}>Live Deals</NavLink>
+          </li>
+          <li>
+            <NavLink to="/offers" className={({ isActive }) => isActive ? 'active' : ''} onClick={handleClose}>Offers</NavLink>
+          </li>
+          <li>
+            <NavLink to="/products" className={({ isActive }) => isActive ? 'active' : ''} onClick={handleClose}>Products</NavLink>
+          </li>
+          <li>
+            <NavLink to="/refer" className={({ isActive }) => isActive ? 'active' : ''} onClick={handleClose}>Refer & Earn</NavLink>
+          </li>
+          <li>
+            <NavLink to="/faq" className={({ isActive }) => isActive ? 'active' : ''} onClick={handleClose}>FAQ</NavLink>
+          </li>
+          <li>
+            <NavLink to="/about" className={({ isActive }) => isActive ? 'active' : ''} onClick={handleClose}>About</NavLink>
+          </li>
+          <li>
+            <NavLink to="/privacy" className={({ isActive }) => isActive ? 'active' : ''} onClick={handleClose}>Privacy</NavLink>
+          </li>
         </ul>
       </nav>
     </header>
