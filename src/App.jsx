@@ -50,8 +50,8 @@ function App() {
   };
 
   const handleAdminLogin = (token) => {
+    localStorage.setItem("adminToken", token);
     setIsAdminAuthenticated(true);
-    // Optionally: store token here if not already stored
   };
 
   const handleSearch = (query) => {
