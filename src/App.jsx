@@ -19,6 +19,7 @@ import Home from './components/Home';
 import Contact from './components/Contact';
 import AdminLogin from './components/AdminLogin';
 import AdminDashboard from './components/AdminDashboard';
+import AdminOffers from './components/AdminOffers';
 
 function ProtectedRoute({ isAuthenticated, children }) {
   return isAuthenticated ? children : <Navigate to="/admin/login" replace />;
@@ -91,6 +92,14 @@ function App() {
               <AdminDashboard />
             </ProtectedRoute>
           } />
+          <Route
+            path="/admin/offers"
+            element={
+              <ProtectedRoute isAuthenticated={isAdminAuthenticated}>
+                <AdminOffers />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </main>
       <Footer />
