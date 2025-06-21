@@ -52,7 +52,9 @@ function AdminLogin({ onLogin }) {
           body: JSON.stringify({ username, password }),
         }
       );
+      console.log("Login API status:", res.status); // Debug: status code
       const data = await res.json();
+      console.log("Login API response:", data); // Debug: response body
       if (data.token) {
         localStorage.setItem('adminToken', data.token);
         onLogin(data.token);
@@ -61,6 +63,7 @@ function AdminLogin({ onLogin }) {
         setError(data.message || 'Invalid credentials');
       }
     } catch (err) {
+      console.error("Login error:", err); // Debug: error
       setError('Server error');
     }
     setLoading(false);
