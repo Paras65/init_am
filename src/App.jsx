@@ -20,6 +20,10 @@ import Contact from './components/Contact';
 import AdminLogin from './components/AdminLogin';
 import AdminDashboard from './components/AdminDashboard';
 import AdminOffers from './components/AdminOffers';
+import ManageProducts from "./components/ManageProducts";
+import ManageTrending from "./components/ManageTrending";
+
+
 
 function ProtectedRoute({ isAuthenticated, children }) {
   return isAuthenticated ? children : <Navigate to="/admin/login" replace />;
@@ -100,6 +104,23 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+        path="/admin/products"
+        element={
+          <ProtectedRoute  isAuthenticated={isAdminAuthenticated}>
+            <ManageProducts />
+          </ProtectedRoute>
+        }
+      />
+       <Route
+        path="/admin/trending"
+        element={
+          <ProtectedRoute  isAuthenticated={isAdminAuthenticated}>
+            <ManageTrending />
+          </ProtectedRoute>
+        }
+      />
+      
         </Routes>
       </main>
       <Footer />
