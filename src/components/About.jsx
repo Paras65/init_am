@@ -1,4 +1,5 @@
 import "./About.css";
+import { Link } from "react-router-dom";
 
 function About() {
   return (
@@ -12,7 +13,7 @@ function About() {
         Browse trending offers, watch product videos, and find answers to your questions in our FAQ. We update our offers regularly to ensure you never miss out on the best deals!
       </p>
       <p className="about-tagline"><em>Empowering you to save more, every day!</em></p>
-      <a href="#offers" className="about-cta">Start Browsing Offers</a>
+      <Link to="/offers" className="about-cta">Start Browsing Offers</Link>
     </section>
   );
 }
