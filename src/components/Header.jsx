@@ -47,15 +47,11 @@ function Header() {
           <li>
             <NavLink to="/refer" className={({ isActive }) => isActive ? 'active' : ''} onClick={handleClose}>Refer & Earn</NavLink>
           </li>
-          <li>
-            <NavLink to="/faq" className={({ isActive }) => isActive ? 'active' : ''} onClick={handleClose}>FAQ</NavLink>
-          </li>
+          
           <li>
             <NavLink to="/about" className={({ isActive }) => isActive ? 'active' : ''} onClick={handleClose}>About</NavLink>
           </li>
-          <li>
-            <NavLink to="/privacy" className={({ isActive }) => isActive ? 'active' : ''} onClick={handleClose}>Privacy</NavLink>
-          </li>
+        
           <li>
             <NavLink to="/contact" className={({ isActive }) => isActive ? 'active' : ''} onClick={handleClose}>Contact</NavLink>
           </li>

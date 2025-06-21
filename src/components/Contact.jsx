@@ -15,9 +15,9 @@ function Contact() {
       <h2>Contact Us</h2>
       <p>
         Have questions, feedback, or partnership inquiries? Fill out the form
-        below or email us at{" "}
+        {/* below or email us at{" "}
         <a href="mailto:support@initfreeoffers.com">support@initfreeoffers.com</a>
-        .
+        . */}
       </p>
       {submitted ? (
         <div className="contact-info-message">
