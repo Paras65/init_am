@@ -33,24 +33,14 @@ function ErrorBar({ message }) {
 }
 
 function AdminLogin({ onLogin }) {
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const validate = () => {
-    if (!password) return 'Password is required';
-    if (password.length < 6) return 'Password must be at least 6 characters';
-    return '';
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const validationError = validate();
-    if (validationError) {
-      setError(validationError);
-      return;
-    }
     setLoading(true);
     setError('');
     try {
@@ -59,15 +49,16 @@ function AdminLogin({ onLogin }) {
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ password }),
+          body: JSON.stringify({ username, password }),
         }
       );
       const data = await res.json();
       if (data.success) {
         onLogin();
+        localStorage.setItem('adminToken', data.token);
         navigate('/admin/dashboard');
       } else {
-        setError(data.message || 'Invalid password');
+        setError(data.message || 'Invalid credentials');
       }
     } catch (err) {
       setError('Server error');
@@ -85,6 +76,14 @@ function AdminLogin({ onLogin }) {
         Admin Login
       </h2>
       <input
+        type="text"
+        placeholder="Enter admin username"
+        value={username}
+        onChange={e => setUsername(e.target.value)}
+        className={`admin-login-input${error ? ' error' : ''}`}
+        disabled={loading}
+      />
+      <input
         type="password"
         placeholder="Enter admin password"
         value={password}
@@ -94,7 +93,7 @@ function AdminLogin({ onLogin }) {
       />
       <button
         type="submit"
-        disabled={loading || !password}
+        disabled={loading || !username || !password}
         className="admin-login-button"
       >
         {loading ? 'Logging in...' : 'Login'}

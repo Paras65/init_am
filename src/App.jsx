@@ -43,25 +43,6 @@ function App() {
     return !!localStorage.getItem("adminToken");
   });
 
-  // Login handler: authenticate with backend
-  const handleAdminLogin = async (credentials) => {
-    try {
-      const res = await fetch("/api/admin/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(credentials),
-      });
-      if (!res.ok) throw new Error("Invalid credentials");
-      const data = await res.json();
-      // Assume backend returns { token: "..." }
-      localStorage.setItem("adminToken", data.token);
-      setIsAdminAuthenticated(true);
-      setNotification({ message: "Login successful!", type: "success" });
-    } catch (err) {
-      setNotification({ message: err.message, type: "error" });
-    }
-  };
-
   // Logout handler: clear token
   const handleAdminLogout = () => {
     localStorage.removeItem("adminToken");
@@ -79,26 +60,7 @@ function App() {
     notificationTimeout.current = setTimeout(() => setNotification({ message: "", type: "info" }), 3000);
   };
 
-  // Protected admin data fetching example
-  useEffect(() => {
-    const fetchProtectedData = async () => {
-      if (!isAdminAuthenticated) return;
-      try {
-        const token = localStorage.getItem("adminToken");
-        const res = await fetch("/api/admin/protected", {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        if (!res.ok) throw new Error("Failed to fetch protected data");
-        const data = await res.json();
-        console.log("Protected data:", data);
-      } catch (err) {
-        console.error(err);
-        setIsAdminAuthenticated(false); // Invalidate session on error
-      }
-    };
-    fetchProtectedData();
-  }, [isAdminAuthenticated]);
-
+  // Keep token validation on mount only
   useEffect(() => {
     const checkToken = async () => {
       const token = localStorage.getItem("adminToken");
@@ -115,6 +77,7 @@ function App() {
       }
     };
     checkToken();
+    // Only run on mount
   }, []);
 
   return (
@@ -154,7 +117,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           {/* Admin routes */}
           <Route path="/admin/login" element={
-            <AdminLogin onLogin={handleAdminLogin} />
+            <AdminLogin setIsAdminAuthenticated={setIsAdminAuthenticated} setNotification={setNotification} />
           } />
           <Route path="/admin/dashboard" element={
             <ProtectedRoute isAuthenticated={isAdminAuthenticated}>
