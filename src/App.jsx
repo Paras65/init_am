@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react'
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import './App.css'
 import Header from './components/Header'
 import Notifications from './components/Notifications'
@@ -17,6 +17,12 @@ import LiveDeals from './components/LiveDeals';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import Home from './components/Home';
 import Contact from './components/Contact';
+import AdminLogin from './components/AdminLogin';
+import AdminDashboard from './components/AdminDashboard';
+
+function ProtectedRoute({ isAuthenticated, children }) {
+  return isAuthenticated ? children : <Navigate to="/admin/login" replace />;
+}
 
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -26,6 +32,9 @@ function App() {
     type: "info"
   });
   const notificationTimeout = useRef();
+
+  // Simple admin auth state (replace with real auth in production)
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
 
   const handleSearch = (query) => {
     setSearchQuery(query);
@@ -73,6 +82,15 @@ function App() {
           <Route path="/faq" element={<FAQ />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/contact" element={<Contact />} />
+          {/* Admin routes */}
+          <Route path="/admin/login" element={
+            <AdminLogin onLogin={() => setIsAdminAuthenticated(true)} />
+          } />
+          <Route path="/admin/dashboard" element={
+            <ProtectedRoute isAuthenticated={isAdminAuthenticated}>
+              <AdminDashboard />
+            </ProtectedRoute>
+          } />
         </Routes>
       </main>
       <Footer />

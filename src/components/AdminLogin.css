@@ -1,0 +1,99 @@
+.admin-login-form {
+  max-width: 380px;
+  margin: 2.5rem auto;
+  padding: 28px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 6px 32px 0 rgba(0,0,0,0.07);
+  font-family: 'Poppins', 'Segoe UI', 'Arial', sans-serif;
+}
+
+.admin-login-logo-brand {
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.admin-login-logo {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px 0 rgba(37,99,235,0.08);
+}
+
+.admin-login-title {
+  font-weight: 700;
+  font-size: 22px;
+  color: #2563eb;
+  margin-bottom: 3px;
+  letter-spacing: 0.5px;
+  font-family: 'Poppins', 'Segoe UI', 'Arial', sans-serif;
+}
+
+.admin-login-intro {
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 500;
+  font-family: 'Poppins', 'Segoe UI', 'Arial', sans-serif;
+}
+
+.admin-login-heading {
+  text-align: center;
+  margin-bottom: 18px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #22223b;
+  font-family: 'Poppins', 'Segoe UI', 'Arial', sans-serif;
+}
+
+.admin-login-input {
+  width: 100%;
+  margin-bottom: 14px;
+  padding: 10px 12px;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 15px;
+  font-family: 'Poppins', 'Segoe UI', 'Arial', sans-serif;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.admin-login-input.error {
+  border: 1.5px solid #e53e3e;
+}
+
+.admin-login-button {
+  width: 100%;
+  padding: 10px 0;
+  background: linear-gradient(90deg, #2563eb 60%, #1e40af 100%);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px 0 rgba(37,99,235,0.08);
+  font-family: 'Poppins', 'Segoe UI', 'Arial', sans-serif;
+  margin-bottom: 6px;
+}
+
+.admin-login-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.admin-login-errorbar {
+  margin-top: 14px;
+  background: #fdecea;
+  color: #b91c1c;
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1.5px solid #fca5a5;
+  font-size: 15px;
+  text-align: center;
+  font-weight: 500;
+  font-family: 'Poppins', 'Segoe UI', 'Arial', sans-serif;
+}
