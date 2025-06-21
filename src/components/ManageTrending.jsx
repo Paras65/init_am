@@ -80,9 +80,7 @@ const ManageTrending = () => {
           <Link to="/admin/trending" className="admin-nav-link">
             Trending
           </Link>
-          <Link to="/admin/contacts" className="admin-nav-link">
-            Contacts
-          </Link>
+          
         </div>
       </nav>
       <h1 className="manage-trending-title">Manage Trending</h1>

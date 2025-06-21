@@ -95,9 +95,7 @@ const ManageProducts = () => {
           <Link to="/admin/trending" className="admin-nav-link">
             Trending
           </Link>
-          <Link to="/admin/contacts" className="admin-nav-link">
-            Contacts
-          </Link>
+         
         </div>
       </nav>
 

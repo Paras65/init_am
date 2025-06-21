@@ -8,7 +8,7 @@ function AdminDashboard() {
     { label: 'Offers', value: 12, link: '/admin/offers' },
     { label: 'Products', value: 34, link: '/admin/products' },
     { label: 'Trending', value: 5, link: '/admin/trending' },
-    { label: 'Contact Messages', value: 3, link: '/admin/contacts' },
+    
   ];
 
   return (

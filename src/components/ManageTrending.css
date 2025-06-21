@@ -76,3 +76,47 @@
   color: #fff;
   cursor: pointer;
 }
+/* --- Admin Navigation Bar --- */
+.admin-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+  justify-content: center;
+  background: #f1f5f9;
+  padding: 10px 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px 0 rgba(37,99,235,0.06);
+}
+
+.admin-nav-link {
+  color: #2563eb;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 5px;
+  font-size: 1.08rem;
+  transition: background 0.18s, color 0.18s;
+}
+
+.admin-nav-link:hover,
+.admin-nav-link.active {
+  background: #2563eb;
+  color: #fff;
+}
+
+/* Responsive for mobile */
+@media (max-width: 600px) {
+  .admin-nav {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 8px 0;
+  }
+  .admin-nav-link {
+    width: 100%;
+    text-align: center;
+    font-size: 1.08rem;
+    padding: 10px 0;
+  }
+}
