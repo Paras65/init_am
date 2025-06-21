@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import './App.css'
 import Header from './components/Header'
@@ -38,8 +38,22 @@ function App() {
   });
   const notificationTimeout = useRef();
 
-  // Simple admin auth state (replace with real auth in production)
-  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
+  // Initialize from localStorage (token-based)
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(() => {
+    return !!localStorage.getItem("adminToken");
+  });
+
+  // Login handler: store token securely (simulate token here)
+  const handleAdminLogin = (token = "demo-token") => {
+    localStorage.setItem("adminToken", token);
+    setIsAdminAuthenticated(true);
+  };
+
+  // Logout handler: clear token
+  const handleAdminLogout = () => {
+    localStorage.removeItem("adminToken");
+    setIsAdminAuthenticated(false);
+  };
 
   const handleSearch = (query) => {
     setSearchQuery(query);
@@ -89,11 +103,11 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           {/* Admin routes */}
           <Route path="/admin/login" element={
-            <AdminLogin onLogin={() => setIsAdminAuthenticated(true)} />
+            <AdminLogin onLogin={handleAdminLogin} />
           } />
           <Route path="/admin/dashboard" element={
             <ProtectedRoute isAuthenticated={isAdminAuthenticated}>
-              <AdminDashboard />
+              <AdminDashboard onLogout={handleAdminLogout} />
             </ProtectedRoute>
           } />
           <Route
@@ -105,22 +119,21 @@ function App() {
             }
           />
           <Route
-        path="/admin/products"
-        element={
-          <ProtectedRoute  isAuthenticated={isAdminAuthenticated}>
-            <ManageProducts />
-          </ProtectedRoute>
-        }
-      />
-       <Route
-        path="/admin/trending"
-        element={
-          <ProtectedRoute  isAuthenticated={isAdminAuthenticated}>
-            <ManageTrending />
-          </ProtectedRoute>
-        }
-      />
-      
+            path="/admin/products"
+            element={
+              <ProtectedRoute isAuthenticated={isAdminAuthenticated}>
+                <ManageProducts />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/trending"
+            element={
+              <ProtectedRoute isAuthenticated={isAdminAuthenticated}>
+                <ManageTrending />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </main>
       <Footer />
