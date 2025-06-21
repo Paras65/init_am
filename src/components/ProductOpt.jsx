@@ -7,18 +7,15 @@ function ProductOpt() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Use the correct API version and endpoint
-    const MEDIA_PARTNER_ID = "IR6bnDc2sazE2194403ocVmSCWnvvDsiX1"; // Not Account SID!
-    const API_KEY = ".kvcJbQby32ozX~AQNvuVZyUCNuHKWMF";
-    const IMPACT_API_URL = `https://IR6bnDc2sazE2194403ocVmSCWnvvDsiX1:.kvcJbQby32ozX~AQNvuVZyUCNuHKWMF@api.impact.com/Mediapartners/${MEDIA_PARTNER_ID}/Catalogs/3909`;
+    const MEDIA_PARTNER_ID = import.meta.env.VITE_IMPACT_MEDIA_PARTNER_ID;
+    const API_KEY = import.meta.env.VITE_IMPACT_API_KEY;
+    const CATALOG_ID = import.meta.env.VITE_IMPACT_CATALOG_ID;
 
-    //https://IR6bnDc2sazE2194403ocVmSCWnvvDsiX1:.kvcJbQby32ozX~AQNvuVZyUCNuHKWMF@api.impact.com/Mediapartners/IR6bnDc2sazE2194403ocVmSCWnvvDsiX1/Catalogs/3903/
-
+    const IMPACT_API_URL = `https://${MEDIA_PARTNER_ID}:${API_KEY}@api.impact.com/Mediapartners/${MEDIA_PARTNER_ID}/Catalogs/${CATALOG_ID}`;
 
     fetch(IMPACT_API_URL, {
       headers: {
         "Accept": "application/json",
-        
       }
     })
       .then(res => {
@@ -26,7 +23,6 @@ function ProductOpt() {
         return res.json();
       })
       .then(data => {
-        // Adjust mapping based on actual API response structure
         const mappedOffers = (data.Campaigns || []).map(item => ({
           id: item.CampaignId,
           name: item.Name,
