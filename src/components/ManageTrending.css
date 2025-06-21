@@ -1,0 +1,78 @@
+.manage-trending-title {
+  color: #222;
+  margin-bottom: 16px;
+}
+
+.manage-trending-form {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.manage-trending-form input {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.manage-trending-form button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: none;
+  color: #fff;
+  background: #222;
+  cursor: pointer;
+}
+
+.manage-trending-form button[type="button"] {
+  background: #aaa;
+}
+
+.manage-trending-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.manage-trending-table th,
+.manage-trending-table td {
+  padding: 10px 8px;
+}
+
+.manage-trending-table thead {
+  background: #222;
+  color: #fff;
+}
+
+.manage-trending-table tr {
+  border-bottom: 1px solid #eee;
+}
+
+.manage-trending-table img {
+  width: 60px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.manage-trending-table .edit-btn {
+  margin-right: 8px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: none;
+  background: #1976d2;
+  color: #fff;
+  cursor: pointer;
+}
+
+.manage-trending-table .delete-btn {
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: none;
+  background: #d32f2f;
+  color: #fff;
+  cursor: pointer;
+}

@@ -1,0 +1,107 @@
+.admin-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #222;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+.admin-nav .admin-nav-link {
+  color: #fff;
+  text-decoration: none;
+  margin-right: 18px;
+  transition: color 0.2s;
+}
+
+.admin-nav .admin-nav-link:last-child {
+  margin-right: 0;
+}
+
+.admin-nav .admin-nav-link.active,
+.admin-nav .admin-nav-link:hover {
+  color: #ffd600;
+  text-decoration: underline;
+}
+
+.manage-products-title {
+  color: #222;
+  margin-bottom: 16px;
+}
+
+.manage-products-form {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.manage-products-form input {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.manage-products-form input[type="number"] {
+  width: 100px;
+}
+
+.manage-products-form input[name="stock"] {
+  width: 80px;
+}
+
+.manage-products-form button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: none;
+  color: #fff;
+  background: #222;
+  cursor: pointer;
+}
+
+.manage-products-form button[type="button"] {
+  background: #aaa;
+}
+
+.manage-products-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.manage-products-table th,
+.manage-products-table td {
+  padding: 10px 8px;
+}
+
+.manage-products-table thead {
+  background: #222;
+  color: #fff;
+}
+
+.manage-products-table tr {
+  border-bottom: 1px solid #eee;
+}
+
+.manage-products-table .edit-btn {
+  margin-right: 8px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: none;
+  background: #1976d2;
+  color: #fff;
+  cursor: pointer;
+}
+
+.manage-products-table .delete-btn {
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: none;
+  background: #d32f2f;
+  color: #fff;
+  cursor: pointer;
+}
