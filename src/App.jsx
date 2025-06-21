@@ -122,7 +122,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           {/* Admin routes */}
           <Route path="/admin/login" element={
-            <AdminLogin setIsAdminAuthenticated={setIsAdminAuthenticated} setNotification={setNotification} />
+            <AdminLogin onLogin={handleAdminLogin} setNotification={setNotification} />
           } />
           <Route path="/admin/dashboard" element={
             <ProtectedRoute isAuthenticated={isAdminAuthenticated}>

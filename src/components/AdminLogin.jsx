@@ -56,8 +56,7 @@ function AdminLogin({ onLogin }) {
       const data = await res.json();
       console.log("Login API response:", data); // Debug: response body
       if (data.token) {
-        localStorage.setItem('adminToken', data.token);
-        onLogin(data.token);
+        onLogin(data.token); // Do NOT store token here
         navigate('/admin/dashboard');
       } else {
         setError(data.message || 'Invalid credentials');
