@@ -100,7 +100,7 @@ const ManageProducts = () => {
   };
 
   return (
-    <div className="admin-product-container">
+    <d className="admin-product-container">
       <nav className="admin-nav">
         <Link to="/admin/dashboard" className="admin-nav-link">
           Dashboard
@@ -222,6 +222,15 @@ const ManageProducts = () => {
           </tbody>
         </table>
       )}
+       <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
+        draggable
+      />
+    
     </div>
   );
 };
