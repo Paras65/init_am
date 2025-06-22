@@ -1,167 +1,116 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useRef } from "react";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./ManageTrending.css";
 
-const initialForm = {
-  title: "",
-  description: "",
-  imageUrl: "",
-  link: "",
-};
+const initialForm = { title: "", description: "", imageUrl: "", link: "" };
 
 const ManageTrending = () => {
   const [trending, setTrending] = useState([]);
   const [form, setForm] = useState(initialForm);
   const [editingIndex, setEditingIndex] = useState(null);
+  const toastId = useRef(null);
+  const navigate = useNavigate();
 
-  // Handle input changes
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  const api = axios.create({
+    baseURL: import.meta.env.REACT_APP_API_URL,
+  });
 
-  // Add or update trending item
-  const handleSubmit = (e) => {
+  api.interceptors.response.use(
+    res => res,
+    err => {
+      toast.error("Server error, please try again."); 
+      return Promise.reject(err);
+    }
+  );
+
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!form.title || !form.description || !form.imageUrl || !form.link) {
-      alert("All fields are required.");
+    const missing = ["title","description","imageUrl","link"].some(key => !form[key]);
+    if (missing) {
+      if (!toast.isActive(toastId.current))
+        toastId.current = toast.warn("Fill all fields.");
       return;
     }
-    if (editingIndex !== null) {
-      // Update
-      const updated = [...trending];
-      updated[editingIndex] = {
-        ...form,
-        createdAt: updated[editingIndex].createdAt,
-      };
-      setTrending(updated);
+
+    try {
+      toastId.current = toast.loading("Saving...");
+      const payload = { ...form };
+      const resp = editingIndex != null
+        ? await api.put(`/trending/${trending[editingIndex].id}`, payload)
+        : await api.post("/trending", payload);
+
+      const item = resp.data;
+      const updatedList = editingIndex != null
+        ? trending.map((t, i) => i === editingIndex ? item : t)
+        : [...trending, item];
+
+      setTrending(updatedList);
+      toast.update(toastId.current, {
+        render: editingIndex != null ? "Updated!" : "Added!",
+        type: "success", isLoading: false, autoClose: 3000
+      });
+
       setEditingIndex(null);
-    } else {
-      // Create
-      setTrending([
-        ...trending,
-        {
-          ...form,
-          createdAt: new Date().toISOString(),
-        },
-      ]);
+      setForm(initialForm);
+
+    } catch (err) {
+      toast.update(toastId.current, {
+        render: "Operation failed", type: "error", isLoading: false, autoClose: 5000
+      });
     }
-    setForm(initialForm);
   };
 
-  // Edit trending item
-  const handleEdit = (idx) => {
-    setForm(trending[idx]);
+  const handleEdit = idx => {
     setEditingIndex(idx);
+    setForm(trending[idx]);
   };
 
-  // Delete trending item
-  const handleDelete = (idx) => {
-    if (window.confirm("Delete this trending item?")) {
-      setTrending(trending.filter((_, i) => i !== idx));
+  const handleDelete = async idx => {
+    const item = trending[idx];
+    if (!window.confirm(`Delete "${item.title}"?`)) return;
+
+    try {
+      await api.delete(`/trending/${item.id}`);
+      setTrending(prev => prev.filter((_, i) => i !== idx));
+      toast.success("Deleted.");
+    } catch {
+      toast.error("Delete failed.");
     }
   };
 
   return (
     <div>
-          <nav className="admin-nav">
-                <Link to="/admin/dashboard" className="admin-nav-link">Dashboard</Link>
-                <Link to="/admin/offers" className="admin-nav-link">Offers</Link>
-                <Link to="/admin/products" className="admin-nav-link">Products</Link>
-                <Link to="/admin/trending" className="admin-nav-link active ">Trending</Link>
-          
-              </nav>
-      <h1 className="manage-trending-title">Manage Trending</h1>
+      <nav className="admin-nav">
+        <Link to="/admin/dashboard" className="admin-nav-link">Dashboard</Link>
+        {/* ... other nav links */}
+        <Link to="/admin/trending" className="admin-nav-link active">Trending</Link>
+      </nav>
+      <h1>Manage Trending</h1>
       <form onSubmit={handleSubmit} className="manage-trending-form">
-        <input
-          name="title"
-          placeholder="Title"
-          value={form.title}
-          onChange={handleChange}
-          required
-        />
-        <input
-          name="description"
-          placeholder="Description"
-          value={form.description}
-          onChange={handleChange}
-          required
-        />
-        <input
-          name="imageUrl"
-          placeholder="Image URL"
-          value={form.imageUrl}
-          onChange={handleChange}
-          required
-        />
-        <input
-          name="link"
-          placeholder="Link"
-          value={form.link}
-          onChange={handleChange}
-          required
-        />
-        <button type="submit">
-          {editingIndex !== null ? "Update" : "Add"}
-        </button>
-        {editingIndex !== null && (
-          <button
-            type="button"
-            onClick={() => {
-              setForm(initialForm);
-              setEditingIndex(null);
-            }}
-          >
-            Cancel
-          </button>
-        )}
+        {["title","description","imageUrl","link"].map(name => (
+          <input
+            key={name}
+            name={name}
+            placeholder={name.charAt(0).toUpperCase() + name.slice(1)}
+            value={form[name]}
+            onChange={handleChange}
+            required
+          />
+        ))}
+        <button type="submit">{editingIndex != null ? "Update" : "Add"}</button>
+        {editingIndex != null && <button type="button" onClick={() => { setForm(initialForm); setEditingIndex(null); }}>Cancel</button>}
       </form>
+
       <table className="manage-trending-table">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Image</th>
-            <th>Link</th>
-            <th>Created At</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {trending.length === 0 ? (
-            <tr>
-              <td colSpan="6" style={{ textAlign: "center", padding: 20 }}>No trending items</td>
-            </tr>
-          ) : (
-            trending.map((item, idx) => (
-              <tr key={idx}>
-                <td>{item.title}</td>
-                <td>{item.description}</td>
-                <td>
-                  <img src={item.imageUrl} alt={item.title} />
-                </td>
-                <td>
-                  <a href={item.link} target="_blank" rel="noopener noreferrer">{item.link}</a>
-                </td>
-                <td>{new Date(item.createdAt).toLocaleString()}</td>
-                <td>
-                  <button
-                    className="edit-btn"
-                    onClick={() => handleEdit(idx)}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="delete-btn"
-                    onClick={() => handleDelete(idx)}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))
-          )}
-        </tbody>
+        {/* ... render rows */}
       </table>
+
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 };
