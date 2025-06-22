@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'; // Add this import
 import './AdminOffers.css';
+import { toast,ToastContainer } from 'react-toastify'; // Import toast for notifications
+import 'react-toastify/dist/ReactToastify.css'; // Import toast styles
 
 function AdminOffers() {
   const [offers, setOffers] = useState([]);
@@ -61,12 +63,17 @@ function AdminOffers() {
         }),
       });
       if (!res.ok) throw new Error('Failed to save offer');
+      const savedOffer = await res.json();
+      toast.success(`Offer ${formMode === 'edit' ? 'updated' : 'added'} successfully.`);
+      // Update offers list
       setForm({ title: '', description: '', discount: '', startDate: '', endDate: '', id: null });
       setFormMode('add');
       fetchOffers();
     } catch {
+      toast.error('Failed to save offer.');
       setError('Failed to save offer.');
     }
+    // Reset form and submitting state
     setSubmitting(false);
   };
 
@@ -80,12 +87,13 @@ function AdminOffers() {
       endDate: offer.endDate ? offer.endDate.slice(0, 10) : '',
       id: offer.id || offer._id
     });
+    
     setFormMode('edit');
   };
 
   // Handle delete
   const handleDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this offer?')) return;
+    if (!toast.warn('Are you sure you want to delete this offer?')) return;
     setSubmitting(true);
     setError('');
     try {
@@ -93,8 +101,10 @@ function AdminOffers() {
         method: 'DELETE',
       });
       if (!res.ok) throw new Error('Failed to delete offer');
+      toast.success('Offer deleted successfully.');
       fetchOffers();
     } catch {
+      toast.error('Failed to delete offer.');
       setError('Failed to delete offer.');
     }
     setSubmitting(false);
@@ -250,6 +260,11 @@ function AdminOffers() {
           </tbody>
         </table>
       )}
+      {offers.length === 0 && !loading && (
+        <p className="admin-offers-no-data">No offers available. Add a new offer to get started.</p>
+      )}
+      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
+      
     </div>
   );
 }
