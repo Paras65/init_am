@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 import './AdminDashboard.css';
 
 function AdminDashboard() {
@@ -32,8 +33,11 @@ function AdminDashboard() {
       <button
         className="admin-dashboard-logout"
         onClick={() => {
-          // Add your logout logic here (clear auth state, redirect, etc.)
-          window.location.href = '/admin/login';
+           // Clear authentication data
+  localStorage.removeItem('adminToken');
+  sessionStorage.removeItem('adminToken');
+  // Redirect to login page without adding to history
+  window.location.replace('/admin/login');
         }}
       >
         Logout
