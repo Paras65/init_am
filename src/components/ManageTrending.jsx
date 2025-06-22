@@ -63,26 +63,13 @@ const ManageTrending = () => {
 
   return (
     <div>
-        <nav className="admin-nav">
-        <div style={{ fontWeight: "bold", fontSize: 18 }}>
-          Welcome,
-        </div>
-        <div style={{ display: "flex", gap: 18 }}>
-          <Link to="/admin/dashboard" className="admin-nav-link">
-            Dashboard
-          </Link>
-          <Link to="/admin/offers" className="admin-nav-link">
-            Offers
-          </Link>
-          <Link to="/admin/products" className="admin-nav-link">
-            Products
-          </Link>
-          <Link to="/admin/trending" className="admin-nav-link active">
-            Trending
-          </Link>
+          <nav className="admin-nav">
+                <Link to="/admin/dashboard" className="admin-nav-link">Dashboard</Link>
+                <Link to="/admin/offers" className="admin-nav-link">Offers</Link>
+                <Link to="/admin/products" className="admin-nav-link">Products</Link>
+                <Link to="/admin/trending" className="admin-nav-link active ">Trending</Link>
           
-        </div>
-      </nav>
+              </nav>
       <h1 className="manage-trending-title">Manage Trending</h1>
       <form onSubmit={handleSubmit} className="manage-trending-form">
         <input

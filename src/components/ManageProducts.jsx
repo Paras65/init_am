@@ -78,26 +78,13 @@ const ManageProducts = () => {
   return (
     <div className="admin-product-container">
       {/* Enhanced Admin Navigation Bar */}
-      <nav className="admin-nav">
-        <div style={{ fontWeight: "bold", fontSize: 18 }}>
-          Welcome, {adminName}
-        </div>
-        <div style={{ display: "flex", gap: 18 }}>
-          <Link to="/admin/dashboard" className="admin-nav-link">
-            Dashboard
-          </Link>
-          <Link to="/admin/offers" className="admin-nav-link">
-            Offers
-          </Link>
-          <Link to="/admin/products" className="admin-nav-link active">
-            Products
-          </Link>
-          <Link to="/admin/trending" className="admin-nav-link">
-            Trending
-          </Link>
-         
-        </div>
-      </nav>
+        <nav className="admin-nav">
+              <Link to="/admin/dashboard" className="admin-nav-link">Dashboard</Link>
+              <Link to="/admin/offers" className="admin-nav-link">Offers</Link>
+              <Link to="/admin/products" className="admin-nav-link active">Products</Link>
+              <Link to="/admin/trending" className="admin-nav-link">Trending</Link>
+        
+            </nav>
 
       <h1 className="manage-products-title">Manage Products</h1>
       <form onSubmit={handleSubmit} className="manage-products-form">
