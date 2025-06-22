@@ -38,17 +38,19 @@
   color: var(--admin-primary);
   font-weight: 600;
   text-decoration: none;
-  padding: 10px 0;
+  padding: 14px 0;
   border-radius: 6px;
-  font-size: 1rem;
+  font-size: 1.08rem;
   transition: background 0.18s, color 0.18s;
   letter-spacing: 0.01em;
   width: 100%;
   text-align: center;
+  outline: none;
 }
 
 .admin-nav-link:hover,
-.admin-nav-link.active {
+.admin-nav-link.active,
+.admin-nav-link:focus-visible {
   background: var(--admin-primary);
   color: #fff;
 }
@@ -83,6 +85,7 @@
 
 .manage-products-form input[name="stock"] {
   width: 100%;
+  overflow: auto;
 }
 
 .manage-products-form button {
@@ -203,3 +206,4 @@
     padding: 12px 10px;
   }
 }
+
