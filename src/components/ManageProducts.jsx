@@ -100,7 +100,7 @@ const ManageProducts = () => {
   };
 
   return (
-    <d className="admin-product-container">
+    <div className="admin-product-container">
       <nav className="admin-nav">
         <Link to="/admin/dashboard" className="admin-nav-link">
           Dashboard
