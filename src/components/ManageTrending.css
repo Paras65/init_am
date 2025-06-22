@@ -1,122 +1,179 @@
-.manage-trending-title {
-  color: #222;
-  margin-bottom: 16px;
+/* Theme colors */
+:root {
+  --admin-primary: #2563eb;
+  --admin-primary-dark: #1e40af;
+  --admin-bg: #f8fafc;
+  --admin-surface: #fff;
+  --admin-border: #e5e7eb;
+  --admin-text: #222;
+  --admin-accent: #ffd600;
+  --admin-danger: #d32f2f;
+  --admin-danger-dark: #b91c1c;
+  --admin-success: #059669;
 }
 
-.manage-trending-form {
-  margin-bottom: 20px;
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.manage-trending-form input {
-  padding: 8px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-}
-
-.manage-trending-form button {
-  padding: 8px 16px;
-  border-radius: 4px;
-  border: none;
-  color: #fff;
-  background: #222;
-  cursor: pointer;
-}
-
-.manage-trending-form button[type="button"] {
-  background: #aaa;
-}
-
-.manage-trending-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: #fff;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.manage-trending-table th,
-.manage-trending-table td {
-  padding: 10px 8px;
-}
-
-.manage-trending-table thead {
-  background: #222;
-  color: #fff;
-}
-
-.manage-trending-table tr {
-  border-bottom: 1px solid #eee;
-}
-
-.manage-trending-table img {
-  width: 60px;
-  height: 40px;
-  object-fit: cover;
-  border-radius: 4px;
-}
-
-.manage-trending-table .edit-btn {
-  margin-right: 8px;
-  padding: 4px 10px;
-  border-radius: 4px;
-  border: none;
-  background: #1976d2;
-  color: #fff;
-  cursor: pointer;
-}
-
-.manage-trending-table .delete-btn {
-  padding: 4px 10px;
-  border-radius: 4px;
-  border: none;
-  background: #d32f2f;
-  color: #fff;
-  cursor: pointer;
-}
 /* --- Admin Navigation Bar --- */
 .admin-nav {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 20px;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 18px;
   justify-content: center;
-  background: #f1f5f9;
-  padding: 10px 0;
+  background: var(--admin-bg);
+  padding: 8px 0;
   border-radius: 8px;
   box-shadow: 0 2px 8px 0 rgba(37,99,235,0.06);
 }
 
 .admin-nav-link {
-  color: #2563eb;
+  color: var(--admin-primary);
   font-weight: 600;
   text-decoration: none;
-  padding: 8px 14px;
-  border-radius: 5px;
-  font-size: 1.08rem;
+  padding: 10px 0;
+  border-radius: 6px;
+  font-size: 1rem;
   transition: background 0.18s, color 0.18s;
+  letter-spacing: 0.01em;
+  width: 100%;
+  text-align: center;
 }
 
 .admin-nav-link:hover,
 .admin-nav-link.active {
-  background: #2563eb;
+  background: var(--admin-primary);
   color: #fff;
 }
 
-/* Responsive for mobile */
-@media (max-width: 600px) {
+/* --- Trending Table & Form --- */
+.manage-trending-title {
+  color: var(--admin-primary-dark);
+  margin-bottom: 14px;
+  letter-spacing: 0.01em;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.manage-trending-form {
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.manage-trending-form input {
+  padding: 9px;
+  border-radius: 5px;
+  border: 1px solid var(--admin-border);
+  background: var(--admin-surface);
+  color: var(--admin-text);
+  font-size: 1rem;
+}
+
+.manage-trending-form button {
+  padding: 10px 0;
+  border-radius: 5px;
+  border: none;
+  color: #fff;
+  background: var(--admin-primary);
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.18s;
+  font-size: 1rem;
+}
+
+.manage-trending-form button[type="button"] {
+  background: var(--admin-primary-dark);
+}
+
+.manage-trending-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--admin-surface);
+  border-radius: 10px;
+  overflow-x: auto;
+  box-shadow: 0 2px 8px 0 rgba(37,99,235,0.04);
+  font-size: 0.95rem;
+}
+
+.manage-trending-table th,
+.manage-trending-table td {
+  padding: 10px 6px;
+  word-break: break-word;
+}
+
+.manage-trending-table thead {
+  background: var(--admin-primary);
+  color: #fff;
+}
+
+.manage-trending-table tr {
+  border-bottom: 1px solid var(--admin-border);
+}
+
+.manage-trending-table img {
+  max-width: 60px;
+  max-height: 40px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid var(--admin-border);
+}
+
+.manage-trending-table .edit-btn {
+  margin-right: 6px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: none;
+  background: var(--admin-success);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.18s;
+  font-size: 0.95rem;
+}
+
+.manage-trending-table .edit-btn:hover {
+  background: #047857;
+}
+
+.manage-trending-table .delete-btn {
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: none;
+  background: var(--admin-danger);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.18s;
+  font-size: 0.95rem;
+}
+
+.manage-trending-table .delete-btn:hover {
+  background: var(--admin-danger-dark);
+}
+
+/* --- Desktop Enhancements --- */
+@media (min-width: 600px) {
   .admin-nav {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
-    padding: 8px 0;
+    flex-direction: row;
+    gap: 12px;
+    padding: 12px 0;
   }
   .admin-nav-link {
-    width: 100%;
-    text-align: center;
+    width: auto;
+    padding: 9px 18px;
     font-size: 1.08rem;
-    padding: 10px 0;
+    text-align: left;
+  }
+  .manage-trending-title {
+    font-size: 1.5rem;
+    text-align: left;
+  }
+  .manage-trending-form {
+    flex-direction: row;
+    gap: 12px;
+  }
+  .manage-trending-table th,
+  .manage-trending-table td {
+    padding: 12px 10px;
   }
 }

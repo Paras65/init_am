@@ -101,14 +101,14 @@ function AdminOffers() {
   };
 
   return (
-    <div className="admin-offers-container">
+     <div className="admin-offers-container">
       {/* Admin Navigation */}
       <nav className="admin-nav">
         <Link to="/admin/dashboard" className="admin-nav-link">Dashboard</Link>
         <Link to="/admin/offers" className="admin-nav-link active">Offers</Link>
         <Link to="/admin/products" className="admin-nav-link">Products</Link>
         <Link to="/admin/trending" className="admin-nav-link">Trending</Link>
-        <Link to="/admin/contacts" className="admin-nav-link">Contacts</Link>
+  
       </nav>
       <h2 className="admin-offers-title">Manage Offers</h2>
       {/* Add/Edit Offer Form */}

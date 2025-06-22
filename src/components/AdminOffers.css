@@ -1,92 +1,123 @@
+:root {
+  --admin-primary: #2563eb;
+  --admin-primary-dark: #1e40af;
+  --admin-bg: #f8fafc;
+  --admin-surface: #fff;
+  --admin-border: #e5e7eb;
+  --admin-text: #222;
+  --admin-accent: #ffd600;
+  --admin-danger: #d32f2f;
+  --admin-danger-dark: #b91c1c;
+  --admin-success: #059669;
+}
+
+/* --- Mobile First Styles --- */
 .admin-offers-container {
-  max-width: 900px;
-  margin: 1.5rem auto;
-  background: #fff;
-  padding: 24px 18px;
-  border-radius: 18px;
-  box-shadow: 0 6px 32px 0 rgba(37,99,235,0.09);
+  max-width: 100%;
+  margin: 1rem 0.5rem;
+  background: var(--admin-surface);
+  padding: 14px 6px;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px 0 rgba(37,99,235,0.09);
   font-family: 'Poppins', 'Segoe UI', 'Arial', sans-serif;
 }
 
 .admin-offers-title {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   margin-bottom: 10px;
   text-align: center;
+  color: var(--admin-primary-dark);
+  letter-spacing: 0.01em;
 }
 
 .admin-offers-form {
-  margin-bottom: 28px;
-  background: #f9fafb;
-  padding: 18px 18px 8px 18px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px 0 rgba(37,99,235,0.06);
+  margin-bottom: 22px;
+  background: var(--admin-bg);
+  padding: 12px 8px 6px 8px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px 0 rgba(37,99,235,0.04);
 }
+
 .admin-offers-form-row {
   display: flex;
-  gap: 18px;
-  margin-bottom: 12px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
 }
+
 .admin-offers-form-group {
   flex: 1;
-  min-width: 180px;
+  min-width: 120px;
   display: flex;
   flex-direction: column;
 }
+
 .admin-offers-form-group label {
-  margin-top: 10px;
+  margin-top: 8px;
   margin-bottom: 2px;
   font-weight: 600;
-  color: #22223b;
+  color: var(--admin-primary-dark);
   font-size: 1rem;
 }
+
 .admin-offers-input {
-  padding: 8px 12px;
-  border: 1.5px solid #cbd5e1;
+  padding: 12px 14px;
+  border: 1.5px solid var(--admin-border);
   border-radius: 8px;
-  font-size: 1rem;
+  font-size: 1.08rem;
   margin-bottom: 2px;
-  background: #fff;
+  background: var(--admin-surface);
   transition: border 0.2s, box-shadow 0.2s;
+  color: var(--admin-text);
   box-shadow: 0 1px 2px 0 rgba(37,99,235,0.03);
 }
+
 .admin-offers-input:focus {
-  border: 1.5px solid #2563eb;
+  border: 1.5px solid var(--admin-primary);
   outline: none;
-  box-shadow: 0 0 0 2px #2563eb22;
+  box-shadow: 0 0 0 2px #2563eb33;
 }
+
 .admin-offers-form-actions {
   display: flex;
-  gap: 12px;
+  flex-direction: column;
+  gap: 10px;
   margin-top: 8px;
 }
+
+.admin-offers-save-btn,
+.admin-offers-cancel-btn {
+  min-height: 48px;
+  font-size: 1.08rem;
+  border-radius: 8px;
+  font-weight: 700;
+  transition: background 0.2s, box-shadow 0.2s, color 0.2s;
+  outline: none;
+}
+
 .admin-offers-save-btn {
-  background: linear-gradient(90deg, #2563eb 60%, #1e40af 100%);
+  background: linear-gradient(90deg, var(--admin-primary) 60%, var(--admin-primary-dark) 100%);
   color: #fff;
   border: none;
-  border-radius: 8px;
-  padding: 10px 22px;
-  font-weight: 700;
-  font-size: 1.08rem;
-  cursor: pointer;
-  transition: background 0.2s, box-shadow 0.2s;
   box-shadow: 0 2px 8px 0 rgba(37,99,235,0.08);
 }
-.admin-offers-save-btn:hover {
-  background: linear-gradient(90deg, #1e40af 60%, #2563eb 100%);
+
+.admin-offers-save-btn:hover,
+.admin-offers-save-btn:focus-visible {
+  background: linear-gradient(90deg, var(--admin-primary-dark) 60%, var(--admin-primary) 100%);
+  box-shadow: 0 4px 16px 0 rgba(37,99,235,0.13);
 }
+
 .admin-offers-cancel-btn {
   background: #f3f4f6;
-  color: #22223b;
-  border: 1.5px solid #cbd5e1;
-  border-radius: 8px;
-  padding: 10px 18px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s;
+  color: var(--admin-primary-dark);
+  border: 1.5px solid var(--admin-border);
 }
-.admin-offers-cancel-btn:hover {
+
+.admin-offers-cancel-btn:hover,
+.admin-offers-cancel-btn:focus-visible {
   background: #e5e7eb;
+  color: var(--admin-primary);
 }
 
 .admin-offers-loading,
@@ -96,196 +127,128 @@
   margin: 18px 0;
 }
 .admin-offers-error {
-  color: #e53e3e;
+  color: var(--admin-danger);
   background: #fdecea;
   border: 1px solid #fca5a5;
   border-radius: 8px;
   padding: 10px 0;
 }
 
-.admin-offers-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 16px;
-  background: #f9fafb;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px 0 rgba(37,99,235,0.06);
-}
-
-.admin-offers-table th,
-.admin-offers-table td {
-  border: 1px solid #e5e7eb;
-  padding: 14px 16px;
-  text-align: left;
-}
-
-.admin-offers-table th {
-  background: #f1f5f9;
-  font-weight: 700;
-  color: #2563eb;
-  font-size: 1.05rem;
-  letter-spacing: 0.2px;
-}
-
-.admin-offers-table tr:nth-child(even) {
-  background: #f3f4f6;
-}
-
-.admin-offers-edit-btn,
-.admin-offers-delete-btn {
-  padding: 8px 18px;
-  border: none;
-  border-radius: 7px;
-  font-weight: 600;
-  margin-right: 8px;
-  cursor: pointer;
-  font-family: inherit;
-  font-size: 1rem;
-  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-  box-shadow: 0 1px 4px 0 rgba(37,99,235,0.06);
-}
-.admin-offers-edit-btn {
-  background: #2563eb;
-  color: #fff;
-}
-.admin-offers-edit-btn:hover {
-  background: #1e40af;
-}
-.admin-offers-delete-btn {
-  background: #e53e3e;
-  color: #fff;
-}
-.admin-offers-delete-btn:hover {
-  background: #b91c1c;
-}
-
 /* --- Navigation --- */
 .admin-nav {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 20px;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 18px;
   justify-content: center;
-  background: #f1f5f9;
-  padding: 10px 0;
+  background: var(--admin-bg);
+  padding: 8px 0;
   border-radius: 8px;
+  box-shadow: 0 2px 8px 0 rgba(37,99,235,0.06);
 }
+
 .admin-nav-link {
-  color: #2563eb;
+  color: var(--admin-primary);
   font-weight: 600;
   text-decoration: none;
-  padding: 8px 14px;
-  border-radius: 5px;
+  padding: 14px 0;
+  border-radius: 6px;
   font-size: 1.08rem;
   transition: background 0.18s, color 0.18s;
+  letter-spacing: 0.01em;
+  width: 100%;
+  text-align: center;
+  outline: none;
 }
+
 .admin-nav-link:hover,
-.admin-nav-link.active {
-  background: #2563eb;
+.admin-nav-link.active,
+.admin-nav-link:focus-visible {
+  background: var(--admin-primary);
   color: #fff;
 }
 
-/* Mobile-first responsive styles */
-@media (max-width: 600px) {
-  .admin-offers-container {
-    padding: 6px;
-    border-radius: 0;
-    box-shadow: none;
-  }
-  .admin-offers-table,
-  .admin-offers-table thead,
-  .admin-offers-table tbody,
-  .admin-offers-table th,
-  .admin-offers-table td,
-  .admin-offers-table tr {
-    display: block;
-    width: 100%;
-  }
-  .admin-offers-table thead {
-    display: none;
-  }
-  .admin-offers-table tr {
-    margin-bottom: 16px;
-    background: #f9fafb;
-    border-radius: 8px;
-    box-shadow: 0 1px 4px 0 rgba(0,0,0,0.04);
-    padding: 8px 0;
-  }
-  .admin-offers-table td {
-    border: none;
-    border-bottom: 1px solid #e5e7eb;
-    position: relative;
-    padding-left: 48%;
-    min-height: 36px;
+/* --- Table and Buttons: keep your existing responsive styles below --- */
+
+/* --- Table: horizontal scroll on mobile --- */
+.admin-offers-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  margin-bottom: 1rem;
+}
+.admin-offers-table {
+  min-width: 100%;
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--admin-surface);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px 0 rgba(37,99,235,0.04);
+  font-size: 0.95rem;
+}
+.admin-offers-table th,
+.admin-offers-table td {
+  padding: 14px 8px;
+  word-break: break-word;
+}
+.admin-offers-table thead {
+  background: var(--admin-primary);
+  color: #fff;
+}
+.admin-offers-table tr {
+  border-bottom: 1px solid var(--admin-border);
+  transition: background 0.15s;
+}
+.admin-offers-table tr:hover {
+  background: #f1f5f9;
+}
+
+/* --- Responsive tweaks for mobile --- */
+@media (max-width: 500px) {
+  .admin-offers-title {
     font-size: 1rem;
+    padding: 0 2px;
   }
-  .admin-offers-table td:before {
-    position: absolute;
-    left: 12px;
-    top: 8px;
-    width: 45%;
-    white-space: nowrap;
-    font-weight: bold;
-    color: #2563eb;
+  .admin-offers-form-group label {
     font-size: 0.98rem;
-    content: attr(data-label);
   }
-  .admin-offers-table tr:last-child td {
-    border-bottom: none;
+  .admin-offers-form {
+    padding: 8px 2px 4px 2px;
   }
-  .admin-offers-edit-btn,
-  .admin-offers-delete-btn {
-    width: 100%;
-    margin: 6px 0;
-    font-size: 1.05rem;
+  .admin-offers-table {
+    font-size: 0.92rem;
   }
 }
-@media (max-width: 700px) {
-  .admin-offers-table,
-  .admin-offers-table thead,
-  .admin-offers-table tbody,
-  .admin-offers-table th,
-  .admin-offers-table td,
-  .admin-offers-table tr {
-    display: block;
-    width: 100%;
+
+/* --- Desktop enhancements (already present, keep as is) --- */
+@media (min-width: 700px) {
+  .admin-offers-container {
+    max-width: 900px;
+    margin: 1.5rem auto;
+    padding: 24px 18px;
+    border-radius: 18px;
   }
-  .admin-offers-table thead {
-    display: none;
+  .admin-offers-form-row {
+    flex-direction: row;
+    gap: 18px;
   }
-  .admin-offers-table tr {
-    margin-bottom: 18px;
-    background: #f9fafb;
-    border-radius: 10px;
-    box-shadow: 0 1px 4px 0 rgba(0,0,0,0.04);
-    padding: 10px 0;
+  .admin-offers-form-actions {
+    flex-direction: row;
+    gap: 12px;
   }
-  .admin-offers-table td {
-    border: none;
-    border-bottom: 1px solid #e5e7eb;
-    position: relative;
-    padding-left: 48%;
-    min-height: 36px;
-    font-size: 1rem;
-    display: flex;
-    align-items: flex-start;
-    word-break: break-word;
-    padding-top: 8px;
-    padding-bottom: 8px;
+  .admin-nav {
+    flex-direction: row;
+    gap: 12px;
+    padding: 12px 0;
   }
-  .admin-offers-table td:before {
-    position: absolute;
-    left: 12px;
-    top: 8px;
-    width: 45%;
-    white-space: nowrap;
-    font-weight: bold;
-    color: #2563eb;
-    font-size: 0.98rem;
-    content: attr(data-label);
+  .admin-nav-link {
+    width: auto;
+    padding: 9px 18px;
+    font-size: 1.08rem;
+    text-align: left;
   }
-  .admin-offers-table tr:last-child td {
-    border-bottom: none;
+  .admin-offers-title {
+    font-size: 1.3rem;
+    text-align: left;
   }
 }

@@ -71,13 +71,13 @@ const ManageTrending = () => {
           <Link to="/admin/dashboard" className="admin-nav-link">
             Dashboard
           </Link>
-          <Link to="/admin/offers" className="admin-nav-link active">
+          <Link to="/admin/offers" className="admin-nav-link">
             Offers
           </Link>
           <Link to="/admin/products" className="admin-nav-link">
             Products
           </Link>
-          <Link to="/admin/trending" className="admin-nav-link">
+          <Link to="/admin/trending" className="admin-nav-link active">
             Trending
           </Link>
           
