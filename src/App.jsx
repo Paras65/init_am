@@ -22,6 +22,8 @@ import AdminDashboard from './components/AdminDashboard';
 import AdminOffers from './components/AdminOffers';
 import ManageProducts from "./components/ManageProducts";
 import ManageTrending from "./components/ManageTrending";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -155,6 +157,7 @@ function App() {
           />
         </Routes>
       </main>
+      <ToastContainer />
       <Footer />
     </div>
   )

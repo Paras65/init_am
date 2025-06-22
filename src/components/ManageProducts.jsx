@@ -1,6 +1,9 @@
-import { useState } from "react";
-import { Link } from "react-router-dom"; // Add this import
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
 import "./ManageProducts.css";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const initialForm = {
   name: "",
@@ -14,17 +17,31 @@ const ManageProducts = () => {
   const [products, setProducts] = useState([]);
   const [form, setForm] = useState(initialForm);
   const [editingIndex, setEditingIndex] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  // Example: Get admin name (replace with real logic as needed)
   const adminName = localStorage.getItem("adminName") || "Admin";
 
-  // Handle input changes
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const fetchProducts = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get("/api/products");
+      setProducts(response.data);
+    } catch (error) {
+      toast.error("Error fetching products:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // Add or update product
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (
       !form.name ||
@@ -33,58 +50,71 @@ const ManageProducts = () => {
       !form.category ||
       !form.stock
     ) {
-      alert("All fields are required.");
+      toast.success("All fields are required.");
       return;
     }
-    if (editingIndex !== null) {
-      // Update
-      const updated = [...products];
-      updated[editingIndex] = {
-        ...form,
-        price: Number(form.price),
-        stock: Number(form.stock),
-        createdAt: updated[editingIndex].createdAt,
-      };
-      setProducts(updated);
-      setEditingIndex(null);
-    } else {
-      // Create
-      setProducts([
-        ...products,
-        {
+
+    try {
+      if (editingIndex !== null) {
+        const productId = products[editingIndex]._id; // Ensure you're using the correct ID field
+        await axios.put(`/api/products/${productId}`, {
           ...form,
           price: Number(form.price),
           stock: Number(form.stock),
-          createdAt: new Date().toISOString(),
-        },
-      ]);
+        });
+        toast.success("Product updated successfully.");
+      } else {
+        await axios.post("/api/products", {
+          ...form,
+          price: Number(form.price),
+          stock: Number(form.stock),
+        });
+        toast.success("Product added successfully.");
+      }
+      setForm(initialForm);
+      setEditingIndex(null);
+      fetchProducts();
+    } catch (error) {
+      toast.error("Error saving product:", error);
+      toast.error("An error occurred while saving the product.");
     }
-    setForm(initialForm);
   };
 
-  // Edit product
   const handleEdit = (idx) => {
     setForm(products[idx]);
     setEditingIndex(idx);
   };
 
-  // Delete product
-  const handleDelete = (idx) => {
-    if (window.confirm("Delete this product?")) {
-      setProducts(products.filter((_, i) => i !== idx));
+  const handleDelete = async (idx) => {
+    if (toast.warn("Delete this product?")) {
+      try {
+        const productId = products[idx]._id; // Ensure you're using the correct ID field
+        await axios.delete(`/api/products/${productId}`);
+        toast.success("Product deleted successfully.");
+        fetchProducts();
+      } catch (error) {
+        toast.error("Error deleting product:", error);
+        toast.error("An error occurred while deleting the product.");
+      }
     }
   };
 
   return (
     <div className="admin-product-container">
-      {/* Enhanced Admin Navigation Bar */}
-        <nav className="admin-nav">
-              <Link to="/admin/dashboard" className="admin-nav-link">Dashboard</Link>
-              <Link to="/admin/offers" className="admin-nav-link">Offers</Link>
-              <Link to="/admin/products" className="admin-nav-link active">Products</Link>
-              <Link to="/admin/trending" className="admin-nav-link">Trending</Link>
-        
-            </nav>
+      <nav className="admin-nav">
+        <Link to="/admin/dashboard" className="admin-nav-link">
+          Dashboard
+        </Link>
+        <Link to="/admin/offers" className="admin-nav-link">
+          Offers
+        </Link>
+        <Link to="/admin/products" className="admin-nav-link active">
+          Products
+        </Link>
+        <Link to="/admin/trending" className="admin-nav-link">
+          Trending
+        </Link>
+      </nav>
 
       <h1 className="manage-products-title">Manage Products</h1>
       <form onSubmit={handleSubmit} className="manage-products-form">
@@ -140,53 +170,58 @@ const ManageProducts = () => {
           </button>
         )}
       </form>
-      <table className="manage-products-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Price</th>
-            <th>Category</th>
-            <th>Stock</th>
-            <th>Created At</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.length === 0 ? (
+
+      {loading ? (
+        <p>Loading products...</p>
+      ) : (
+        <table className="manage-products-table">
+          <thead>
             <tr>
-              <td colSpan="7" style={{ textAlign: "center", padding: 20 }}>
-                No products
-              </td>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Price</th>
+              <th>Category</th>
+              <th>Stock</th>
+              <th>Created At</th>
+              <th>Actions</th>
             </tr>
-          ) : (
-            products.map((p, idx) => (
-              <tr key={idx}>
-                <td>{p.name}</td>
-                <td>{p.description}</td>
-                <td>{p.price}</td>
-                <td>{p.category}</td>
-                <td>{p.stock}</td>
-                <td>{new Date(p.createdAt).toLocaleString()}</td>
-                <td>
-                  <button
-                    className="edit-btn"
-                    onClick={() => handleEdit(idx)}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="delete-btn"
-                    onClick={() => handleDelete(idx)}
-                  >
-                    Delete
-                  </button>
+          </thead>
+          <tbody>
+            {products.length === 0 ? (
+              <tr>
+                <td colSpan="7" style={{ textAlign: "center", padding: 20 }}>
+                  No products
                 </td>
               </tr>
-            ))
-          )}
-        </tbody>
-      </table>
+            ) : (
+              products.map((p, idx) => (
+                <tr key={p._id}> {/* Ensure you're using the correct ID field */}
+                  <td>{p.name}</td>
+                  <td>{p.description}</td>
+                  <td>{p.price}</td>
+                  <td>{p.category}</td>
+                  <td>{p.stock}</td>
+                  <td>{new Date(p.createdAt).toLocaleString()}</td>
+                  <td>
+                    <button
+                      className="edit-btn"
+                      onClick={() => handleEdit(idx)}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="delete-btn"
+                      onClick={() => handleDelete(idx)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };
