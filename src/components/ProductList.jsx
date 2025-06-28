@@ -3587,17 +3587,19 @@ function ProductList({ searchQuery }) {
           const category = categories[catIdx].name;
           const subcategory = getSubcategory(category, idx);
           return {
-            id: item.id,
+            id: item._id,
             name: item.name,
-            link: item.TrackingLink,
-            description: item.Description,
-            image: item.Creative,
-            category,
+            link: item.link,
+            price: item.price,
+            description: item.description,
+            image: item.imageURL,
+            category:item.category,
             subcategory
           };
 
           
         });
+        console.log('Mapped Products:', mappedProducts);
         setProducts(mappedProducts);
         setLoading(false);
       })
