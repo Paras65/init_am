@@ -30,7 +30,7 @@ const ManageProducts = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get("/api/products");
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/products`);
       setProducts(response.data);
     } catch (error) {
       // Log the detailed error for developers, show a user-friendly message
@@ -72,10 +72,11 @@ const ManageProducts = () => {
 
     try {
       if (editingId) {
-        await axios.put(`/api/products/${editingId}`, productData);
+    
+        await axios.put(`${import.meta.env.VITE_API_URL}/api/products/${editingId}`, productData);
         toast.success("Product updated successfully.");
       } else {
-        await axios.post("/api/products", productData);
+        await axios.post(`${import.meta.env.VITE_API_URL}/api/products`, productData);
         toast.success("Product added successfully.");
       }
       handleCancelEdit(); // Reset form and editing state
@@ -102,7 +103,7 @@ const ManageProducts = () => {
   const handleDelete = async (productId) => {
     if (window.confirm("Are you sure you want to delete this product?")) {
       try {
-        await axios.delete(`/api/products/${productId}`);
+        await axios.delete(`${import.meta.env.VITE_API_URL}/api/products/${productId}`);
         toast.success("Product deleted successfully.");
         await fetchProducts();
       } catch (error) {
@@ -171,7 +172,7 @@ const ManageProducts = () => {
 
         try {
           // NOTE: This assumes your backend has an endpoint to handle bulk creation.
-          await axios.post("/api/products/csv", { products: newProducts });
+          await axios.post(`${import.meta.env.VITE_API_URL}/api/products/csv`, { products: newProducts });
           toast.success(`${newProducts.length} products uploaded successfully!`);
           await fetchProducts();
           setCsvFile(null); // Reset file input
