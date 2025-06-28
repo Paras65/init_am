@@ -264,16 +264,20 @@ const ManageProducts = () => {
         <p className="csv-instructions">
           Upload a CSV file with headers: name, description, price, category, stock.
         </p>
-        <div className="csv-form">
+        <div className="csv-upload-form">
+          <label htmlFor="csv-file-input" className="csv-upload-label">
+            {csvFile ? csvFile.name : "Choose a file..."}
+          </label>
           <input
+            id="csv-file-input"
             type="file"
             accept=".csv"
             onChange={handleFileChange}
             // Use a key to reset the input when the file is cleared
             key={csvFile ? csvFile.name : "file-input"}
           />
-          <button onClick={handleCsvUpload} disabled={isUploading}>
-            {isUploading ? "Uploading..." : "Upload CSV"}
+          <button className="csv-upload-button" onClick={handleCsvUpload} disabled={isUploading || !csvFile}>
+            {isUploading ? "Uploading..." : "Upload"}
           </button>
         </div>
       </div>
