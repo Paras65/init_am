@@ -27,7 +27,7 @@ function TrendingOffers() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://api.example.com/offers") // Replace with your API endpoint
+    fetch(`${import.meta.env.VITE_API_URL}/api/trending`) // Replace with your API endpoint
       .then((res) => {
         if (!res.ok) throw new Error("Network response was not ok");
         return res.json();
@@ -49,7 +49,7 @@ function TrendingOffers() {
       <h3 className="trending-title">🔥 Top Trending Offers</h3>
       <ul className="trending-list">
         {offers.map((offer) => (
-          <li key={offer.id} className="trending-item">
+          <li key={offer._id} className="trending-item">
             <a
               href={offer.link}
               className="trending-link"
