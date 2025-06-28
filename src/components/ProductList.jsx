@@ -3574,7 +3574,7 @@ function ProductList({ searchQuery }) {
 
   useEffect(() => {
     let isMounted = true;
-    fetch('https://jsonplaceholder1.typicode.com/posts?_limit=10')
+    fetch(`${import.meta.env.VITE_API_URL}/api/products`)
       .then(res => {
         if (!res.ok) throw new Error("Network response was not ok");
         return res.json();
