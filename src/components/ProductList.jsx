@@ -3588,7 +3588,7 @@ function ProductList({ searchQuery }) {
           const subcategory = getSubcategory(category, idx);
           return {
             id: item.id,
-            name: item.Name,
+            name: item.name,
             link: item.TrackingLink,
             description: item.Description,
             image: item.Creative,
@@ -3596,67 +3596,6 @@ function ProductList({ searchQuery }) {
             subcategory
           };
 
-// {
-//     "AdId": 168205,
-//     "Name": "Family Protector Secure X8",
-//     "Description": "Family Protector Secure X8",
-//     "CampaignId": 3086,
-//     "AdType": "BANNER",
-//     "Labels": "family protector secure x8,intego",
-//     "AllowDeepLinking": true,
-//     "MobileReady": false,
-//     "Language": "ENGLISH",
-//     "LimitedTimeStartDate": "",
-//     "LimitedTimeEndDate": "",
-//     "FallbackAd": "",
-//     "GetHtmlCodeType": "HTML_AND_IFRAME",
-//     "LandingPage": "https://www.intego.com/mac-parental-control-security-software",
-//     "HostedBy": "URL",
-//     "Creative": "https://s3.amazonaws.com/intego-aff/Display/EN/728x90-INTG_FP-color-blue-orange.png",
-//     "ThirdPartyServableAdCreativeHeight": 728,
-//     "ThirdPartyServableAdCreativeWidth": 90,
-//     "Season": "",
-//     "TopSeller": false,
-//     "IabAdUnit": "LEADERBOARD",
-//     "CouponAllowCustomPromoCode": false,
-//     "LinkText": "",
-//     "BannerAlternativeTag": "Family Protector Secure X8",
-//     "CustomisationCharge": "$0.00",
-//     "CreativeUrl": "/display-ad/168205?version=0",
-//     "PhoneTracking": false,
-//     "PromoCodeTracking": false,
-//     "Metadata": "",
-//     "TrackingLink": "https://intego.7eer.net/c/2194403/168205/3086",
-//     "DealName": "",
-//     "DealType": "",
-//     "DealDiscountType": "",
-//     "DealScope": "",
-//     "DealProducts": "",
-//     "DealCategories": "",
-//     "DealPromoCode": "",
-//     "DealDiscountPercent": "",
-//     "DealDiscountAmount": "",
-//     "DealGift": "",
-//     "DealRebate": "",
-//     "DealMinimumPurchaseAmount": "",
-//     "DealMaximumDiscountPercent": "",
-//     "DealStartDiscountPercent": "",
-//     "DealEndDiscountPercent": "",
-//     "DealMaximumSavingsAmount": "",
-//     "DealPurchaseLimitQty": "",
-//     "DealBogoBuyQty": "",
-//     "DealBogoBuyScope": "",
-//     "DealBogoBuyName": "",
-//     "DealBogoGetQty": "",
-//     "DealBogoGetScope": "",
-//     "DealBogoGetDiscountType": "",
-//     "DealBogoGetDiscountPercent": "",
-//     "DealBogoGetDiscountAmount": "",
-//     "DealBogoGetName": "",
-//     "DealBogoBuyImageUrl": "",
-//     "DealBogoGetImageUrl": "",
-//     "DealSerialVersionUID": ""
-//   }
           
         });
         setProducts(mappedProducts);
@@ -3676,7 +3615,7 @@ function ProductList({ searchQuery }) {
     return products.filter(product =>
       (!mainCat || product.category === mainCat) &&
       (!subCat || product.subcategory === subCat) &&
-      product.Name.toLowerCase().includes(searchQuery.toLowerCase())
+      product.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
   }, [products, selectedCategory, searchQuery]);
 
