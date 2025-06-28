@@ -48,11 +48,12 @@ function ProductOpt() {
         return res.json();
       })
       .then(data => {
-        const mappedOffers = (data.Campaigns || []).map((item, idx) => ({
-          id: item.CampaignId,
-          name: item.Name,
-          image: item.LogoUrl || `https://loremflickr.com/80/80/product?lock=${idx + 1}`,
-          link: item.WebsiteUrl || "https://www.lipsum.com/"
+        console.log("Fetched offers:",data);
+        const mappedOffers = (data || []).map((item, idx) => ({
+          id: item._id,
+          name: item.name,
+          image: item.image || `https://loremflickr.com/80/80/product?lock=${idx + 1}`,
+          link: item.link || "https://www.lipsum.com/"
         }));
         setOffers(mappedOffers.length ? mappedOffers : defaultOffers);
         setLoading(false);
