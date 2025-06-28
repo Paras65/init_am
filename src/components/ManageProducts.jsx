@@ -314,6 +314,9 @@ const ManageProducts = () => {
           <thead>
             <tr>
               <th>Name</th>
+              <th>Image URL</th>
+              <th>Link</th>
+              <th>Price</th>
               <th>Description</th>
               <th>Price</th>
               <th>Category</th>
