@@ -57,12 +57,12 @@ function TrendingOffers() {
               rel="noopener noreferrer"
             >
               <img
-                src={offer.image}
+                src={`${offer.imageUrl || offer.image}`}
                 alt={offer.name}
                 className="trending-img"
                 loading="lazy"
               />
-              <span>{offer.name}</span>
+              <span>{offer.title}</span>
             </a>
           </li>
         ))}

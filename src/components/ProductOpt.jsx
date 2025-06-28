@@ -52,7 +52,7 @@ function ProductOpt() {
         const mappedOffers = (data || []).map((item, idx) => ({
           id: item._id,
           name: item.name,
-          image: item.image || `https://loremflickr.com/80/80/product?lock=${idx + 1}`,
+          image: item.imageURL||item.image || `https://loremflickr.com/80/80/product?lock=${idx + 1}`,
           link: item.link || "https://www.lipsum.com/"
         }));
         setOffers(mappedOffers.length ? mappedOffers : defaultOffers);
