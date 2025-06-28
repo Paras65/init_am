@@ -41,7 +41,7 @@ const ManageTrending = () => {
       toastId.current = toast.loading("Saving...");
       const payload = { ...form };
       const resp = editingIndex != null
-        ? await api.put(`/trending/${trending[editingIndex].id}`, payload)
+        ? await api.put(`/trending/${trending[editingIndex]._id}`, payload)
         : await api.post("/trending", payload);
       const item = resp.data;
       const updatedList = editingIndex != null
@@ -70,7 +70,7 @@ const ManageTrending = () => {
     const item = trending[idx];
     if (!window.confirm(`Delete "${item.title}"?`)) return;
     try {
-      await api.delete(`/trending/${item.id}`);
+      await api.delete(`/trending/${item._id}`);
       setTrending(prev => prev.filter((_,i) => i !== idx));
       toast.success("Deleted.");
     } catch {
@@ -129,7 +129,7 @@ const ManageTrending = () => {
             </tr>
           ) : (
             trending.map((item, idx) => (
-              <tr key={item.id}>
+              <tr key={item._id}>
                 <td>{item.title}</td>
                 <td>{item.description}</td>
                 <td>
