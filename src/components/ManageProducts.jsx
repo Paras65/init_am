@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -9,6 +10,8 @@ import Papa from "papaparse";
 
 const initialForm = {
   name: "",
+  imageURL: "",
+  link: "",
   description: "",
   price: "",
   category: "",
@@ -54,6 +57,8 @@ const ManageProducts = () => {
     e.preventDefault();
     if (
       !form.name ||
+      !form.imageURL ||
+      !form.link ||
       !form.description ||
       !form.price ||
       !form.category ||
@@ -92,6 +97,8 @@ const ManageProducts = () => {
   const handleEdit = (product) => {
     setForm({
       name: product.name,
+      imageURL: product.imageURL,
+      link: product.link,
       description: product.description,
       price: product.price,
       category: product.category,
@@ -130,6 +137,8 @@ const ManageProducts = () => {
     setIsUploading(true);
     const requiredHeaders = [
       "name",
+      "imageURL",
+      "link",
       "description",
       "price",
       "category",
@@ -217,6 +226,21 @@ const ManageProducts = () => {
           required
         />
         <input
+          name="imageURL"
+          placeholder="Image URL"
+          value={form.imageURL}
+          onChange={handleChange}
+          required
+        />
+        <input
+          name="link"
+          placeholder="Link"
+          value={form.link}
+          onChange={handleChange}
+          required
+        />
+
+        <input
           name="description"
           placeholder="Description"
           value={form.description}
@@ -263,7 +287,7 @@ const ManageProducts = () => {
       <div className="csv-upload-section">
         <h2 className="csv-upload-title">Add Products via CSV</h2>
         <p className="csv-instructions">
-          Upload a CSV file with headers: name, description, price, category, stock.
+          Upload a CSV file with headers: name,, imageURL, link, description, price, category, stock.
         </p>
         <div className="csv-upload-form">
           <label htmlFor="csv-file-input" className="csv-upload-label">
@@ -309,6 +333,9 @@ const ManageProducts = () => {
               products.map((p, idx) => (
                 <tr key={p._id}> {/* Ensure you're using the correct ID field */}
                   <td>{p.name}</td>
+                  <td>{p.imageURL}</td>
+                  <td><a href={p.link} target="_blank" rel="noopener noreferrer">View</a></td>
+                  <td>{p.price}</td>
                   <td>{p.description}</td>
                   <td>{p.price}</td>
                   <td>{p.category}</td>
