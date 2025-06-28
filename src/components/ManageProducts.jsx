@@ -4,6 +4,7 @@ import axios from "axios";
 import "./ManageProducts.css";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Papa from "papaparse";
 
 
 const initialForm = {
@@ -19,6 +20,8 @@ const ManageProducts = () => {
   const [form, setForm] = useState(initialForm);
   const [editingIndex, setEditingIndex] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [csvFile, setCsvFile] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
 
 
   useEffect(() => {
@@ -99,6 +102,60 @@ const ManageProducts = () => {
     }
   };
 
+  const handleFileChange = (e) => {
+    setCsvFile(e.target.files[0]);
+  };
+
+  const handleCsvUpload = () => {
+    if (!csvFile) {
+      toast.warn("Please select a CSV file.");
+      return;
+    }
+
+    setIsUploading(true);
+
+    Papa.parse(csvFile, {
+      header: true,
+      skipEmptyLines: true,
+      complete: async (results) => {
+        if (results.errors.length) {
+          toast.error("Error parsing CSV file. Please check the format.");
+          setIsUploading(false);
+          return;
+        }
+
+        const newProducts = results.data.map((p) => ({
+          ...p,
+          price: Number(p.price),
+          stock: Number(p.stock),
+        }));
+
+        if (newProducts.length === 0) {
+          toast.warn("CSV file is empty or contains no valid product rows.");
+          setIsUploading(false);
+          return;
+        }
+
+        try {
+          // NOTE: This assumes your backend has an endpoint to handle bulk creation.
+          await axios.post("/api/products/bulk-upload", { products: newProducts });
+          toast.success(`${newProducts.length} products uploaded successfully!`);
+          await fetchProducts();
+          setCsvFile(null); // Reset file input
+        } catch (error) {
+          console.error("Error during bulk upload:", error);
+          toast.error(error.response?.data?.message || "An error occurred during bulk upload.");
+        } finally {
+          setIsUploading(false);
+        }
+      },
+      error: () => {
+        toast.error("Failed to read the CSV file.");
+        setIsUploading(false);
+      },
+    });
+  };
+
   return (
     <div className="admin-product-container">
       <nav className="admin-nav">
@@ -170,6 +227,25 @@ const ManageProducts = () => {
           </button>
         )}
       </form>
+
+      <div className="csv-upload-section">
+        <h2 className="csv-upload-title">Add Products via CSV</h2>
+        <p className="csv-instructions">
+          Upload a CSV file with headers: name, description, price, category, stock.
+        </p>
+        <div className="csv-form">
+          <input
+            type="file"
+            accept=".csv"
+            onChange={handleFileChange}
+            // Use a key to reset the input when the file is cleared
+            key={csvFile ? csvFile.name : "file-input"}
+          />
+          <button onClick={handleCsvUpload} disabled={isUploading}>
+            {isUploading ? "Uploading..." : "Upload CSV"}
+          </button>
+        </div>
+      </div>
 
       {loading ? (
         <p>Loading products...</p>
