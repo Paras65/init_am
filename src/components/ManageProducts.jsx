@@ -171,7 +171,7 @@ const ManageProducts = () => {
 
         try {
           // NOTE: This assumes your backend has an endpoint to handle bulk creation.
-          await axios.post("/api/products/bulk-upload", { products: newProducts });
+          await axios.post("/api/products/csv", { products: newProducts });
           toast.success(`${newProducts.length} products uploaded successfully!`);
           await fetchProducts();
           setCsvFile(null); // Reset file input
