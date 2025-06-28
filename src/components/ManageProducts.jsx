@@ -5,6 +5,7 @@ import "./ManageProducts.css";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+
 const initialForm = {
   name: "",
   description: "",
@@ -19,7 +20,6 @@ const ManageProducts = () => {
   const [editingIndex, setEditingIndex] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const adminName = localStorage.getItem("adminName") || "Admin";
 
   useEffect(() => {
     fetchProducts();
