@@ -18,23 +18,24 @@ const initialForm = {
 const ManageProducts = () => {
   const [products, setProducts] = useState([]);
   const [form, setForm] = useState(initialForm);
-  const [editingIndex, setEditingIndex] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [editingId, setEditingId] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [csvFile, setCsvFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     fetchProducts();
   }, []);
 
   const fetchProducts = async () => {
-    setLoading(true);
     try {
       const response = await axios.get("/api/products");
       setProducts(response.data);
     } catch (error) {
-      toast.error("Error fetching products:", error);
+      // Log the detailed error for developers, show a user-friendly message
+      console.error("Error fetching products:", error);
+      toast.error("Failed to fetch products. Please try again later.");
     } finally {
       setLoading(false);
     }
@@ -42,6 +43,11 @@ const ManageProducts = () => {
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleCancelEdit = () => {
+    setEditingId(null);
+    setForm(initialForm);
   };
 
   const handleSubmit = async (e) => {
@@ -53,56 +59,64 @@ const ManageProducts = () => {
       !form.category ||
       !form.stock
     ) {
-      toast.success("All fields are required.");
+      toast.warn("All fields are required.");
       return;
     }
 
+    setIsSubmitting(true);
+    const productData = {
+      ...form,
+      price: Number(form.price),
+      stock: Number(form.stock),
+    };
+
     try {
-      if (editingIndex !== null) {
-        const productId = products[editingIndex]._id; // Ensure you're using the correct ID field
-        await axios.put(`/api/products/${productId}`, {
-          ...form,
-          price: Number(form.price),
-          stock: Number(form.stock),
-        });
+      if (editingId) {
+        await axios.put(`/api/products/${editingId}`, productData);
         toast.success("Product updated successfully.");
       } else {
-        await axios.post("/api/products", {
-          ...form,
-          price: Number(form.price),
-          stock: Number(form.stock),
-        });
+        await axios.post("/api/products", productData);
         toast.success("Product added successfully.");
       }
-      setForm(initialForm);
-      setEditingIndex(null);
-      fetchProducts();
+      handleCancelEdit(); // Reset form and editing state
+      await fetchProducts(); // Refetch to show the latest data
     } catch (error) {
-      toast.error("Error saving product:", error);
+      console.error("Error saving product:", error);
       toast.error("An error occurred while saving the product.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
-  const handleEdit = (idx) => {
-    setForm(products[idx]);
-    setEditingIndex(idx);
+  const handleEdit = (product) => {
+    setForm({
+      name: product.name,
+      description: product.description,
+      price: product.price,
+      category: product.category,
+      stock: product.stock,
+    });
+    setEditingId(product._id);
   };
 
-  const handleDelete = async (idx) => {
-    if (toast.warn("Delete this product?")) {
+  const handleDelete = async (productId) => {
+    if (window.confirm("Are you sure you want to delete this product?")) {
       try {
-        const productId = products[idx]._id; // Ensure you're using the correct ID field
         await axios.delete(`/api/products/${productId}`);
         toast.success("Product deleted successfully.");
-        fetchProducts();
+        await fetchProducts();
       } catch (error) {
-        toast.error("Error deleting product:", error);
+        console.error("Error deleting product:", error);
         toast.error("An error occurred while deleting the product.");
       }
     }
   };
 
   const handleFileChange = (e) => {
+    if (e.target.files.length === 0) {
+      setCsvFile(null);
+      return;
+    }
     setCsvFile(e.target.files[0]);
   };
 
@@ -113,11 +127,30 @@ const ManageProducts = () => {
     }
 
     setIsUploading(true);
+    const requiredHeaders = [
+      "name",
+      "description",
+      "price",
+      "category",
+      "stock",
+    ];
 
     Papa.parse(csvFile, {
       header: true,
       skipEmptyLines: true,
       complete: async (results) => {
+        // Client-side header validation
+        const fileHeaders = results.meta.fields;
+        const missingHeaders = requiredHeaders.filter(
+          (header) => !fileHeaders.includes(header)
+        );
+
+        if (missingHeaders.length > 0) {
+          toast.error(`CSV file is missing required headers: ${missingHeaders.join(", ")}`);
+          setIsUploading(false);
+          return;
+        }
+
         if (results.errors.length) {
           toast.error("Error parsing CSV file. Please check the format.");
           setIsUploading(false);
@@ -212,16 +245,14 @@ const ManageProducts = () => {
           onChange={handleChange}
           required
         />
-        <button type="submit">
-          {editingIndex !== null ? "Update" : "Add"}
+        <button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Saving..." : editingId ? "Update" : "Add"}
         </button>
-        {editingIndex !== null && (
+        {editingId && (
           <button
             type="button"
-            onClick={() => {
-              setForm(initialForm);
-              setEditingIndex(null);
-            }}
+            onClick={handleCancelEdit}
+            disabled={isSubmitting}
           >
             Cancel
           </button>
@@ -281,13 +312,13 @@ const ManageProducts = () => {
                   <td>
                     <button
                       className="edit-btn"
-                      onClick={() => handleEdit(idx)}
+                      onClick={() => handleEdit(p)}
                     >
                       Edit
                     </button>
                     <button
                       className="delete-btn"
-                      onClick={() => handleDelete(idx)}
+                      onClick={() => handleDelete(p._id)}
                     >
                       Delete
                     </button>
