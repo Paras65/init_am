@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState, useRef } from "react";
 import "./ProductOpt.css";
 
@@ -33,10 +34,11 @@ function ProductOpt() {
     const MEDIA_PARTNER_ID = import.meta.env.VITE_IMPACT_MEDIA_PARTNER_ID;
     const API_KEY = import.meta.env.VITE_IMPACT_API_KEY;
     const CATALOG_ID = import.meta.env.VITE_IMPACT_CATALOG_ID;
+    const defaultOffersURL = import.meta.env.VITE_API_URL
 
     const IMPACT_API_URL = `https://${MEDIA_PARTNER_ID}:${API_KEY}@api.impact.com/Mediapartners/${MEDIA_PARTNER_ID}/Catalogs/${CATALOG_ID}`;
 
-    fetch(IMPACT_API_URL, {
+    fetch(`${defaultOffersURL}/api/Offers`, {
       headers: {
         "Accept": "application/json",
       }
@@ -55,7 +57,7 @@ function ProductOpt() {
         setOffers(mappedOffers.length ? mappedOffers : defaultOffers);
         setLoading(false);
       })
-      .catch(err => {
+      .catch(error => {
         setError("");
         setOffers(defaultOffers);
         setLoading(false);
