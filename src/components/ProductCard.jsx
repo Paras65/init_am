@@ -1,19 +1,23 @@
 function ProductCard({ product, searchQuery }) {
   return (
+    
     <li className="productlist-card">
-      <a href={product.TrackingLink} target="_blank" rel="noopener noreferrer" className="productlist-link">
+     
+      <a href={product.link} target="_blank" rel="noopener noreferrer" className="productlist-link">
         <div className="productlist-card-content">
-          {product.Creative && (
-            <img src={product.Creative} alt={product.Name + " image"} className="productlist-img" />
-          )}
+          {product.image && (
+            <img src={product.image} alt={product.name + " image"} className="productlist-img" />
+          )
+          
+          }
           <h3>
             {searchQuery
-              ? product.Name.split(new RegExp(`(${searchQuery})`, 'gi')).map((part, i) =>
+              ? product.name.split(new RegExp(`(${searchQuery})`, 'gi')).map((part, i) =>
                   part.toLowerCase() === searchQuery.toLowerCase() ? <mark key={i}>{part}</mark> : part
                 )
-              : product.Name}
+              : product.name}
           </h3>
-          <p>{product.Description}</p>
+          <p>{product.description}</p>
           <span className="productlist-badge">
             {product.category}{product.subcategory ? ` / ${product.subcategory}` : ""}
           </span>
