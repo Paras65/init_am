@@ -4,18 +4,22 @@ import './AdminOffers.css';
 import { toast,ToastContainer } from 'react-toastify'; // Import toast for notifications
 import 'react-toastify/dist/ReactToastify.css'; // Import toast styles
 
+const initialFormState = {
+  title: '',
+  description: '',
+  discount: '',
+  startDate: '',
+  endDate: '',
+  imageUrl: '',
+  link: '',
+  id: null,
+};
+
 function AdminOffers() {
   const [offers, setOffers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [form, setForm] = useState({
-    title: '',
-    description: '',
-    discount: '',
-    startDate: '',
-    endDate: '',
-    id: null
-  });
+  const [form, setForm] = useState(initialFormState);
   const [formMode, setFormMode] = useState('add'); // 'add' or 'edit'
   const [submitting, setSubmitting] = useState(false);
 
@@ -58,15 +62,16 @@ function AdminOffers() {
           title: form.title,
           description: form.description,
           discount: form.discount,
+          imageUrl: form.imageUrl,
+          link: form.link,
           startDate: form.startDate,
           endDate: form.endDate
         }),
       });
       if (!res.ok) throw new Error('Failed to save offer');
-      const savedOffer = await res.json();
       toast.success(`Offer ${formMode === 'edit' ? 'updated' : 'added'} successfully.`);
       // Update offers list
-      setForm({ title: '', description: '', discount: '', startDate: '', endDate: '', id: null });
+      setForm(initialFormState);
       setFormMode('add');
       fetchOffers();
     } catch {
@@ -85,6 +90,8 @@ function AdminOffers() {
       discount: offer.discount,
       startDate: offer.startDate ? offer.startDate.slice(0, 10) : '',
       endDate: offer.endDate ? offer.endDate.slice(0, 10) : '',
+      imageUrl: offer.imageUrl || '',
+      link: offer.link || '',
       id: offer.id || offer._id
     });
     
@@ -153,6 +160,32 @@ function AdminOffers() {
           disabled={submitting}
         />
         <br />
+        <label htmlFor="offer-imageUrl">Image URL</label>
+        <input
+          id="offer-imageUrl"
+          type="url"
+          name="imageUrl"
+          placeholder="https://example.com/image.png"
+          value={form.imageUrl || ''}
+          onChange={handleChange}
+          required
+          className="admin-offers-input"
+          disabled={submitting}
+        />
+        <br />
+        <label htmlFor="offer-link">Offer Link</label>
+        <input
+          id="offer-link"
+          type="url"
+          name="link"
+          placeholder="https://example.com/offer-page"
+          value={form.link || ''}
+          onChange={handleChange}
+          required
+          className="admin-offers-input"
+          disabled={submitting}
+        />
+        <br />
         <label htmlFor="offer-discount">Discount (%)</label>
         <input
           id="offer-discount"
@@ -201,8 +234,7 @@ function AdminOffers() {
             <button
               type="button"
               className="admin-offers-cancel-btn"
-              onClick={() => {
-                setForm({ title: '', description: '', discount: '', startDate: '', endDate: '', id: null });
+              onClick={() => { setForm(initialFormState);
                 setFormMode('add');
               }}
               disabled={submitting}
@@ -221,10 +253,11 @@ function AdminOffers() {
           <thead>
             <tr>
               <th>ID</th>
+              <th>Image</th>
               <th>Title & Description</th>
               <th>Discount</th>
-              <th>Start Date</th>
-              <th>End Date</th>
+              <th>Link</th>
+              <th>Active Dates</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -232,13 +265,19 @@ function AdminOffers() {
             {offers.map(offer => (
               <tr key={offer.id || offer._id}>
                 <td data-label="ID">{offer.id || offer._id}</td>
+                <td data-label="Image">
+                  <img src={offer.imageUrl} alt={offer.title} className="offer-image-thumbnail" />
+                </td>
                 <td data-label="Title & Description">
                   <div style={{ fontWeight: 600 }}>{offer.title}</div>
                   <div style={{ color: '#6b7280', fontSize: '0.97em', marginTop: 2 }}>{offer.description}</div>
                 </td>
                 <td data-label="Discount">{offer.discount}%</td>
-                <td data-label="Start Date">{offer.startDate ? new Date(offer.startDate).toLocaleDateString() : ''}</td>
-                <td data-label="End Date">{offer.endDate ? new Date(offer.endDate).toLocaleDateString() : ''}</td>
+                <td data-label="Link"><a href={offer.link} target="_blank" rel="noopener noreferrer">View Offer</a></td>
+                <td data-label="Active Dates">
+                  <div>Start: {offer.startDate ? new Date(offer.startDate).toLocaleDateString() : 'N/A'}</div>
+                  <div>End: {offer.endDate ? new Date(offer.endDate).toLocaleDateString() : 'N/A'}</div>
+                </td>
                 <td data-label="Actions">
                   <button
                     className="admin-offers-edit-btn"
