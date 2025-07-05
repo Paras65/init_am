@@ -3,23 +3,12 @@ import "./LiveDeals.css";
 
 const defaultDeals = [
   {
-    title: "🎟️ Default Coupon: SAVE20",
-    description: "Get 20% off on your first order. Use code at checkout.",
-    price_str: "No minimum spend",
-    url: "#"
+    title: "Discount on an order 20% For all customers",
+    description: "Get 20% off on your first order puzzle movies . Use code at checkout.",
+    price_str: "ZG2sF",
+    url: "https://dhwnh.com/g/kw0gg6zi0u0a0ff1a3c342f9f2178b/?i=31&erid=2bL9aMPo2e49hMef4rqUKxyp2t"
   },
-  {
-    title: "🔥 Default Offer: Free Shipping",
-    description: "Enjoy free shipping on all orders above ₹499.",
-    price_str: "Valid sitewide",
-    url: "#"
-  },
-  {
-    title: "💥 Default Flash Sale",
-    description: "Up to 60% off on select electronics. Limited time only!",
-    price_str: "Hurry, ends soon!",
-    url: "#"
-  }
+ 
 ];
 
 // Use Vite env variables (must start with VITE_)
